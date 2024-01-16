@@ -27,13 +27,27 @@ html, body {
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  position: relative;
+  text-decoration: none;
+  color:black !important;
 }
-a:hover {
-  color: #535bf2;
+
+a::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px; /* Adjust the height as needed */
+  bottom: 0;
+  left: 0;
+  background-color: black; /* Adjust the color as needed */
+  transition: width 0.3s ease; /* Adjust the duration and easing as needed */
 }
+
+a:hover::before {
+  width: 100%;
+  color: black;
+}
+
 
 body {
   margin: 0;
