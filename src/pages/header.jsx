@@ -52,7 +52,7 @@ export default function Header() {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10 " />
-        <Dialog.Panel className="overflow-y-hidden fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 md:max-w-md sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="overflow-y-hidden fixed inset-y-0 right-0 z-10 w-full bg-white px-6 py-6 lg:max-w-md sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-end pt-1">
             <button
               type="button"
@@ -70,7 +70,7 @@ export default function Header() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="block rounded-lg  md:text-left text-center text-3xl font-semibold leading-10 text-gray-900 hover:bg-gray-50"
+                    className="block rounded-lg  lg:text-left text-center text-3xl font-semibold leading-10 text-gray-900 hover:bg-gray-50"
                   >
                     {item.name}
                   </a>
