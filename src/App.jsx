@@ -1,17 +1,29 @@
+import React from "react";
+import {
+  BrowserRouter as BrowserRouter,
+  Route,
+  Routes,
+} from "react-router-dom";
 import "./App.css";
 import Menu from "./pages/Menu";
 import Header from "./pages/header";
-import Homepage from "./pages/homepage";
+import Home from "./pages/Home";
 import Footer from "./pages/Footer";
 import Gallery from "./pages/Gallery";
 
 function App() {
   return (
-    <>
-      <Header></Header>
-      <Gallery></Gallery>
-      <Footer></Footer>
-    </>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/menu" element={<Menu />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery" element={<Gallery />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

@@ -1,16 +1,17 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Home", href: "#" },
-  { name: "Reservation", href: "#" },
-  { name: "Gallery", href: "#" },
-  { name: "About Us", href: "#" },
-  { name: "Menu", href: "#" },
+  { name: "Home", href: "/" },
+  { name: "Reservation", href: "/Reservation" },
+  { name: "Gallery", href: "/Gallery" },
+  { name: "About Us", href: "/About Us" },
+  { name: "Menu", href: "/Menu" },
 ];
 
-export default function Header() {
+export default function header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -35,13 +36,13 @@ export default function Header() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a
+            <Link
               key={item.name}
-              href={item.href}
+              to={item.href} // Change href to the corresponding route path
               className="text-xl font-semibold leading-6 text-gray-900"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
       </nav>
@@ -67,13 +68,14 @@ export default function Header() {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="pb-6 md:text-left h-svh flex flex-col justify-around ">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
-                    className="block rounded-lg  lg:text-left text-center text-3xl font-semibold leading-10 text-gray-900 hover:bg-gray-50"
+                    to={item.href} // Change href to the corresponding route path
+                    className="block rounded-lg lg:text-left text-center text-3xl font-semibold leading-10 text-gray-900 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
