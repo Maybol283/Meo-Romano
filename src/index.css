@@ -8,7 +8,6 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
 }
 
 .custom-radius {
@@ -16,6 +15,18 @@ html, body {
 }
 .custom-radius-2 {
   border-radius: 69% 31% 71% 29% / 59% 67% 33% 41% ;
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+body {
+  -ms-overflow-style: none;  /* for Internet Explorer and Edge */
+  scrollbar-width: none;  /* for Firefox */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 :root {
   font-family: 'Playfair Display', serif;

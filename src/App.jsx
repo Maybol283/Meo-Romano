@@ -10,7 +10,7 @@ import Header from "./pages/header";
 import Home from "./pages/Home";
 import Footer from "./pages/Footer";
 import Gallery from "./pages/Gallery";
-import AboutUs from "./pages/AboutUs";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/about us" element={<AboutUs />} />
+        <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/gallery" element={<Gallery />} />
       </Routes>

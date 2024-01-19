@@ -1,4 +1,4 @@
-export default function AboutUs() {
+export default function About() {
   return (
     <>
       <div className="h-screen pb-20 flex justify-center items-center">
@@ -12,7 +12,7 @@ export default function AboutUs() {
             flavors.
           </p>
         </div>
-        <div className="pb-32 overflow-hidden place-self-center">
+        <div className="mb-32 overflow-hidden place-self-center">
           <img
             src="src/pictures/Food_10.png"
             className="w-80 md:w-9/12  h-auto custom-radius"
