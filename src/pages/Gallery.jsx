@@ -1,18 +1,18 @@
 export default function Gallery() {
   const galleryItems = [
-    { url: "src/pictures/Drink_1.avif", alt: "Lemon Cocktail" },
-    { url: "src/pictures/Food_1.avif", alt: "Steak Grill" },
-    { url: "src/pictures/Food_2.avif", alt: "Pizza Slice" },
-    { url: "src/pictures/Food_3.avif", alt: "Spaghetti" },
-    { url: "src/pictures/Drink_2.avif", alt: "Mimosa" },
-    { url: "src/pictures/Food_4.avif", alt: "2 Meals" },
-    { url: "src/pictures/Misc_1.avif", alt: "Condiments" },
-    { url: "src/pictures/Food_5.avif", alt: "Pizza Oven" },
-    { url: "src/pictures/Food_6.avif", alt: "Carbonara" },
-    { url: "src/pictures/Food_7.avif", alt: "Making Spaghetti" },
-    { url: "src/pictures/Food_8.avif", alt: "Oysters" },
-    { url: "src/pictures/Drink_3.avif", alt: "Wine Rack" },
-    { url: "src/pictures/Food_9.avif", alt: "Anti-Pasti" },
+    { url: "src/pictures/Drink_1.png", alt: "Lemon Cocktail" },
+    { url: "src/pictures/Food_1.png", alt: "Steak Grill" },
+    { url: "src/pictures/Food_2.png", alt: "Pizza Slice" },
+    { url: "src/pictures/Food_3.png", alt: "Spaghetti" },
+    { url: "src/pictures/Drink_2.png", alt: "Mimosa" },
+    { url: "src/pictures/Food_4.png", alt: "2 Meals" },
+    { url: "src/pictures/Misc_1.png", alt: "Condiments" },
+    { url: "src/pictures/Food_5.png", alt: "Pizza Oven" },
+    { url: "src/pictures/Food_6.png", alt: "Carbonara" },
+    { url: "src/pictures/Food_7.png", alt: "Making Spaghetti" },
+    { url: "src/pictures/Food_8.png", alt: "Oysters" },
+    { url: "src/pictures/Drink_3.png", alt: "Wine Rack" },
+    { url: "src/pictures/Food_9.png", alt: "Anti-Pasti" },
   ];
 
   return (
