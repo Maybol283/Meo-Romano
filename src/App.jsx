@@ -10,6 +10,7 @@ import Header from "./pages/header";
 import Home from "./pages/Home";
 import Footer from "./pages/Footer";
 import Gallery from "./pages/Gallery";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (

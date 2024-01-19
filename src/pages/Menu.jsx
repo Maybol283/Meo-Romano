@@ -10,7 +10,7 @@ export default function Menu() {
             index === sections.length - 1 ? "lg:col-span-2 text-center" : ""
           }`}
         >
-          <h2 className="text-bold text-5xl space py-5">{section}</h2>
+          <h2 className="text-bold text-5xl py-5">{section}</h2>
           <div className="space-y-5">
             {menu[section].map((item, itemIndex) => (
               <div key={itemIndex} className="flex flex-col gap-2">
