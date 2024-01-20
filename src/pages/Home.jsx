@@ -3,17 +3,20 @@ import "./Home.css";
 import Testimonials from "./Testimonials";
 
 export default function Home() {
-  const initialTransformValue = window.innerWidth > 800 ? 600 : 300;
+  const initialTransformValue =
+    window.innerWidth > 800 ? 400 : window.innerWidth > 600 ? 300 : 175;
   const [transformValue, setTransformValue] = useState(initialTransformValue);
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
     const totalScroll = document.body.scrollHeight - window.innerHeight;
     let scrollPercent = scrollPosition / totalScroll;
-    let xPos = -initialTransformValue + scrollPercent * 600;
+    let dampeningFactor = 0.5; // Adjust this value to control the speed
+
+    let xPos = -initialTransformValue + scrollPercent * 600 * dampeningFactor;
+
     setTransformValue(xPos);
   };
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
 
@@ -28,7 +31,7 @@ export default function Home() {
         <h2 className="text-5xl sm:text-7xl md:text-9xl">Meo Romano</h2>
         <p className="text-xl">more than just a meal</p>
       </div>
-      <div className="h-2/6 md:h-2/4 overflow-hidden">
+      <div className="h-2/6 md:h-3/6 lg:h-4/6 overflow-hidden">
         <div
           className="w-[150%]"
           style={{
@@ -36,7 +39,7 @@ export default function Home() {
           }}
         >
           <img
-            className="background-img "
+            className="background-img overflow-hidden"
             src="/src/pictures/ClinkGlass_1.png" // Adjust width and objectFit here
           />
         </div>
