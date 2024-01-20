@@ -3,16 +3,15 @@ import "./Home.css";
 import Testimonials from "./Testimonials";
 
 export default function Home() {
-  const [backgroundPosition, setBackgroundPosition] = useState("left");
+  const initialTransformValue = window.innerWidth > 800 ? 600 : 300;
+  const [transformValue, setTransformValue] = useState(initialTransformValue);
 
   const handleScroll = () => {
-    console.log("Scroll handler called");
     const scrollPosition = window.scrollY;
     const totalScroll = document.body.scrollHeight - window.innerHeight;
-    console.log("Y position " + scrollPosition);
     let scrollPercent = scrollPosition / totalScroll;
-    let xPos = -200 + scrollPercent * 200;
-    setBackgroundPosition(`${xPos}px center`);
+    let xPos = -initialTransformValue + scrollPercent * 600;
+    setTransformValue(xPos);
   };
 
   useEffect(() => {
@@ -29,10 +28,19 @@ export default function Home() {
         <h2 className="text-5xl sm:text-7xl md:text-9xl">Meo Romano</h2>
         <p className="text-xl">more than just a meal</p>
       </div>
-      <div
-        className="background-img h-3/6 md:h-4/6"
-        style={{ backgroundPosition }}
-      ></div>
+      <div className="h-2/6 md:h-2/4 overflow-hidden">
+        <div
+          className="w-[150%]"
+          style={{
+            transform: `translateX(${transformValue}px)`,
+          }}
+        >
+          <img
+            className="background-img "
+            src="/src/pictures/ClinkGlass_1.png" // Adjust width and objectFit here
+          />
+        </div>
+      </div>
       <Testimonials></Testimonials>
     </>
   );

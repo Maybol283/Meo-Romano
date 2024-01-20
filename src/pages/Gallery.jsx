@@ -1,4 +1,8 @@
+import { useEffect, useState } from "react";
+
 export default function Gallery() {
+  const [loadedIndices, setLoadedIndices] = useState([]);
+
   const galleryItems = [
     { url: "src/pictures/Drink_1.png", alt: "Lemon Cocktail" },
     { url: "src/pictures/Food_1.png", alt: "Steak Grill" },
@@ -15,12 +19,26 @@ export default function Gallery() {
     { url: "src/pictures/Food_9.png", alt: "Anti-Pasti" },
   ];
 
+  useEffect(() => {
+    galleryItems.forEach((item, index) => {
+      setTimeout(() => {
+        setLoadedIndices((prevIndices) => [...prevIndices, index]);
+      }, index * 1000); // 500ms delay between each image
+    });
+  }, []);
+
   return (
     <>
       <div className="flex flex-wrap place-content-center md:p-5 gap-2">
         {galleryItems.map((item, index) => (
           <div key={index} className="h-[200px] md:h-[300px]">
-            <img src={item.url} className="h-full object-fit" alt={item.alt} />
+            <img
+              src={item.url}
+              className={`h-full object-fit ${
+                loadedIndices.includes(index) ? "fade-in" : ""
+              }`}
+              alt={item.alt}
+            />
           </div>
         ))}
       </div>
