@@ -1,46 +1,46 @@
-import { useEffect, useState } from "react";
+import { useSpring, animated } from "@react-spring/web";
 
 export default function Gallery() {
-  const [loadedIndices, setLoadedIndices] = useState([]);
-
   const galleryItems = [
-    { url: "src/pictures/Drink_1.png", alt: "Lemon Cocktail" },
-    { url: "src/pictures/Food_1.png", alt: "Steak Grill" },
-    { url: "src/pictures/Food_2.png", alt: "Pizza Slice" },
-    { url: "src/pictures/Food_3.png", alt: "Spaghetti" },
-    { url: "src/pictures/Drink_2.png", alt: "Mimosa" },
-    { url: "src/pictures/Food_4.png", alt: "2 Meals" },
-    { url: "src/pictures/Misc_1.png", alt: "Condiments" },
-    { url: "src/pictures/Food_5.png", alt: "Pizza Oven" },
-    { url: "src/pictures/Food_6.png", alt: "Carbonara" },
-    { url: "src/pictures/Food_7.png", alt: "Making Spaghetti" },
-    { url: "src/pictures/Food_8.png", alt: "Oysters" },
-    { url: "src/pictures/Drink_3.png", alt: "Wine Rack" },
-    { url: "src/pictures/Food_9.png", alt: "Anti-Pasti" },
+    { url: "src/pictures/Drink_1.jpg", alt: "Lemon Cocktail" },
+    { url: "src/pictures/Food_1.jpg", alt: "Steak Grill" },
+    { url: "src/pictures/Food_2.jpg", alt: "Pizza Slice" },
+    { url: "src/pictures/Food_3.jpg", alt: "Spaghetti" },
+    { url: "src/pictures/Drink_2.jpg", alt: "Mimosa" },
+    { url: "src/pictures/Food_4.jpg", alt: "2 Meals" },
+    { url: "src/pictures/Misc_1.jpg", alt: "Condiments" },
+    { url: "src/pictures/Food_5.jpg", alt: "Pizza Oven" },
+    { url: "src/pictures/Food_6.jpg", alt: "Carbonara" },
+    { url: "src/pictures/Food_8.jpg", alt: "Oysters" },
+    { url: "src/pictures/Drink_3.jpg", alt: "Wine Rack" },
+    { url: "src/pictures/Food_9.jpg", alt: "Anti-Pasti" },
+    { url: "src/pictures/Drink_4.jpg", alt: "Cocktail" },
+    { url: "src/pictures/Food_7.jpg", alt: "Making Spaghetti" },
+    { url: "src/pictures/Food_11.jpg", alt: "Making Spaghetti" },
+    { url: "src/pictures/Drink_5.jpg", alt: "Making Spaghetti" },
   ];
-
-  useEffect(() => {
-    galleryItems.forEach((item, index) => {
-      setTimeout(() => {
-        setLoadedIndices((prevIndices) => [...prevIndices, index]);
-      }, index * 1000); // 500ms delay between each image
-    });
-  }, []);
 
   return (
     <>
       <div className="flex flex-wrap place-content-center md:p-5 gap-2">
-        {galleryItems.map((item, index) => (
-          <div key={index} className="h-[200px] md:h-[300px]">
-            <img
-              src={item.url}
-              className={`h-full object-fit ${
-                loadedIndices.includes(index) ? "fade-in" : ""
-              }`}
-              alt={item.alt}
-            />
-          </div>
-        ))}
+        {galleryItems.map((item, index) => {
+          const props = useSpring({
+            from: { opacity: 0 },
+            to: { opacity: 1 },
+            delay: index * 150,
+          });
+          return (
+            <div key={index} className="h-[200px] md:h-[300px]">
+              <animated.img
+                style={props}
+                src={item.url}
+                className="h-full object-fit"
+                alt={item.alt}
+                loading="lazy"
+              />
+            </div>
+          );
+        })}
       </div>
     </>
   );

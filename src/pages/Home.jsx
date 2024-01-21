@@ -3,6 +3,7 @@ import "./Home.css";
 import Testimonials from "./Testimonials";
 
 export default function Home() {
+  //inital transform value calculated based on innerWidth for responsiveness
   const initialTransformValue =
     window.innerWidth > 800 ? 400 : window.innerWidth > 600 ? 300 : 175;
   const [transformValue, setTransformValue] = useState(initialTransformValue);

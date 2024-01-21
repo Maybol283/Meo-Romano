@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Footer from "./pages/Footer";
 import Gallery from "./pages/Gallery";
 import About from "./pages/About";
+import Reservations from "./pages/Reservations";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/reservation" element={<Reservations />} />
       </Routes>
       <Footer />
     </BrowserRouter>
