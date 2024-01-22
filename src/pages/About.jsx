@@ -28,7 +28,7 @@ export default function About() {
         <div className="overflow-hidden place-self-center ">
           <img
             src="src/pictures/Chef_1.jpg"
-            className="w-80 md:w-10/12  h-auto custom-radius-2"
+            className="w-80 md:w-9/12  h-auto custom-radius-2"
             alt="Description of the image"
           />
         </div>
