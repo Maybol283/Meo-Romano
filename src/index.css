@@ -17,17 +17,6 @@ html, body {
   border-radius: 69% 31% 71% 29% / 59% 67% 33% 41% ;
 }
 
-/* Hide scrollbar for Chrome, Safari, and Opera */
-body::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge, and Firefox */
-body {
-  -ms-overflow-style: none;  /* for Internet Explorer and Edge */
-  scrollbar-width: none;  /* for Firefox */
-  overflow-x: hidden; /* Hide horizontal scrollbar */
-}
 :root {
   font-family: 'Playfair Display', serif;
   line-height: 1.5;

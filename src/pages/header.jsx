@@ -78,7 +78,7 @@ export default function header() {
               <div className="flow-root">
                 <div className="-my-6 divide-y divide-gray-500/10">
                   <div className="pb-6 md:text-left h-svh flex flex-col justify-around overflow-hidden">
-                    {navigation.map((item, index) => (
+                    {navigation.map((item) => (
                       <Transition.Child
                         enter="transition ease-in-out duration-500 transform"
                         enterFrom="translate-x-2/3"
