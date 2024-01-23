@@ -56,12 +56,12 @@ export default function header() {
         {" "}
         <Transition.Child
           as={Fragment}
-          enter="duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+          enter="duration-300 transition ease-in-out duration-500 transform"
+          enterFrom="opacity-0 translate-x-2/3"
+          enterTo="opacity-100 translate-x-0"
+          leave="duration-200 transition ease-in-out duration-500 transform"
+          leaveFrom="opacity-100  translate-x-0"
+          leaveTo="opacity-0 translate-x-2/3"
         >
           <div className="fixed inset-0 z-10 ">
             <Dialog.Panel className="overflow-y-hidden fixed inset-y-0 right-0 z-10 w-full bg-white px-6 py-6 lg:max-w-md sm:ring-1 sm:ring-gray-900/10">
@@ -79,23 +79,14 @@ export default function header() {
                 <div className="-my-6 divide-y divide-gray-500/10">
                   <div className="pb-6 md:text-left h-svh flex flex-col justify-around overflow-hidden">
                     {navigation.map((item) => (
-                      <Transition.Child
-                        enter="transition ease-in-out duration-500 transform"
-                        enterFrom="translate-x-2/3"
-                        enterTo="translate-x-0"
-                        leave="transition ease-in-out duration-500 transform"
-                        leaveFrom="translate-x-0"
-                        leaveTo="translate-x-2/3"
+                      <Link
+                        key={item.name}
+                        to={item.href} // Change href to the corresponding route path
+                        className="block rounded-lg lg:text-left text-center text-3xl font-semibold leading-10 text-gray-900 hover:bg-gray-50"
+                        onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
                       >
-                        <Link
-                          key={item.name}
-                          to={item.href} // Change href to the corresponding route path
-                          className="block rounded-lg lg:text-left text-center text-3xl font-semibold leading-10 text-gray-900 hover:bg-gray-50"
-                          onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
-                        >
-                          {item.name}
-                        </Link>
-                      </Transition.Child>
+                        {item.name}
+                      </Link>
                     ))}
                   </div>
                 </div>
