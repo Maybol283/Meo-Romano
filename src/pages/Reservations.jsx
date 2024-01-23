@@ -2,13 +2,11 @@ import Calendar from "react-calendar";
 import { useState } from "react";
 import { Listbox } from "@headlessui/react";
 
+const freeTime = [{ time: "18:30" }];
+
 export default function Reservations() {
   const [value, setValue] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(freeTime[0]);
-
-  const freeTime = {
-    time: "18:30",
-  };
 
   function onChange(nextValue) {
     setValue(nextValue);
@@ -20,13 +18,9 @@ export default function Reservations() {
       <Listbox value={selectedTime} onChange={setSelectedTime}>
         <Listbox.Button>{selectedTime.time}</Listbox.Button>
         <Listbox.Options>
-          {people.map((person) => (
-            <Listbox.Option
-              key={person.id}
-              value={person}
-              disabled={person.unavailable}
-            >
-              {person.name}
+          {freeTime.map((e) => (
+            <Listbox.Option key={e.time} value={e.time} disabled={e.time}>
+              {e.time}
             </Listbox.Option>
           ))}
         </Listbox.Options>
