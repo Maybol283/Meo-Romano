@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/{path?}', function() {
+Route::get('/{any}', function ($any = null) {
+    if ($any && File::exists(public_path("frontend/$any"))) {
+        return File::get(public_path("frontend/$any"));
+    }
+
     return File::get(public_path('frontend/index.html'));
-})->where('path', '.*')->name('react');
+})->where('any', '.*');
