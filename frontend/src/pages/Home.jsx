@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Home.css";
 import Testimonials from "./Testimonials";
+import images from "../images/Image_URLS";
 
 export default function Home() {
   //inital transform value calculated based on innerWidth for responsiveness
@@ -41,7 +42,8 @@ export default function Home() {
         >
           <img
             className="background-img overflow-hidden"
-            src="/src/pictures/ClinkGlass_1.png" // Adjust width and objectFit here
+            src={images.home[0].url}
+            alt={images.home[0].alt} // Adjust width and objectFit here
           />
         </div>
       </div>
