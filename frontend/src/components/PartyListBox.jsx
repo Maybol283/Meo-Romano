@@ -1,17 +1,14 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-
+import { CheckIcon } from "@heroicons/react/20/solid";
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
-export default function PartyListBox() {
-  const [selected, setSelected] = useState(partySize[0]);
-
+export default function PartyListBox({ selected, setSelected }) {
   return (
     <div className="w-40">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2  pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
             <span className="flex justify-center">{selected}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <svg
@@ -41,7 +38,7 @@ export default function PartyListBox() {
                 <Listbox.Option
                   key={index}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                    `relative cursor-default select-none py-2 pr-4 ${
                       active ? "bg-amber-100 text-amber-900" : "text-gray-900"
                     }`
                   }
@@ -57,9 +54,7 @@ export default function PartyListBox() {
                         {size}
                       </span>
                       {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                        </span>
+                        <span className="absolute inset-y-0 left-0 flex items-center  text-amber-600"></span>
                       ) : null}
                     </>
                   )}
