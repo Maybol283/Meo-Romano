@@ -6,12 +6,12 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Menu from "./pages/Menu";
-import Header from "./pages/header";
 import Home from "./pages/Home";
-import Footer from "./pages/Footer";
 import Gallery from "./pages/Gallery";
 import About from "./pages/About";
 import Reservations from "./pages/Reservations";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   return (
