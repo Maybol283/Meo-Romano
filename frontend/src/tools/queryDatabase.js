@@ -8,11 +8,11 @@ export default function queryDatabase(partySize, date) {
     };
   
    // Send a POST request to your backend
-   axios.post('http://127.0.0.1/:8000//reservations/query', data)
-   .then(response => {
-     console.log('Success:', response.data);
-     // Handle success here (e.g., update state, redirect, etc.)
-   })
+    axios.get('http://127.0.0.1:8000/reservations/query', data)
+    .then(response => {
+        console.log('Success:', response.data);
+        // Handle success here (e.g., update state, redirect, etc.)
+    })
    .catch(error => {
      console.error('Error:', error.response ? error.response.data : error.message);
      // Handle errors here
