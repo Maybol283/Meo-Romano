@@ -13,11 +13,12 @@ class ReservationController extends Controller
         $date = $request->input('date');
 
         // Perform your logic here (e.g., query the database)
-
+        \Log::info('Received partySize: ' . $partySize);
+        \Log::info('Received date: ' . $date);
         // Return a response
         return response()->json([
-            'success' => true,
-            'message' => 'Query processed successfully',
+            'Received partySize' => $partySize,
+            'Received date' => $date,
             // Include any other necessary data in the response
         ]);
     }

@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import dateFormatter from "../tools/dateFormatter";
 import ReservationForm from "../components/ReservationForm.jsx";
-import queryDatabase from "../tools/queryDatabase.js";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -13,27 +12,27 @@ export default function Reservations() {
   const [bookingInfo, setBookingInfo] = useState({
     name: null,
     number: null,
-    partySize: null,
+    partySize: 1,
     email: null,
     date: dateFormatter(new Date()),
     time: "00:00",
   });
 
-  console.log(bookingInfo);
   function handleBookingInfoChange(fieldName, value) {
     setBookingInfo((prevInfo) => ({
       ...prevInfo,
       [fieldName]: value,
     }));
-
-    queryDatabase(bookingInfo.partySize, bookingInfo.date);
   }
 
   function dateSelect(dateValue) {
     const formattedDate = dateFormatter(dateValue); //format the data into DD/MM/YYYY before state update
-
     handleBookingInfoChange("date", formattedDate);
   }
+
+  useEffect(() => {
+    handleBookingInfoChange("partySize", selectedPartySize); //update partySize before sending too queryDatabase.js
+  }, [selectedPartySize]);
 
   return (
     <div className="h-screen flex flex-col justify-center items-center overflow-hidden relative z-5">
@@ -48,6 +47,7 @@ export default function Reservations() {
           toggle={toggle}
           setToggle={setToggle}
           handleBookingInfoChange={handleBookingInfoChange}
+          bookingInfo={bookingInfo}
         />
         <Transition
           as="div"

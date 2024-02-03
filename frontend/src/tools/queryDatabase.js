@@ -7,8 +7,10 @@ export default function queryDatabase(partySize, date) {
       date: date
     };
   
+ 
+
    // Send a POST request to your backend
-    axios.get('http://127.0.0.1:8000/reservations/query', data)
+    axios.get('http://127.0.0.1:8000/api/reservations/query', { params: data })
     .then(response => {
         console.log('Success:', response.data);
         // Handle success here (e.g., update state, redirect, etc.)

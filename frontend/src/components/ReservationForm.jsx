@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import PartyListBox from "./PartyListBox";
 import { Transition } from "@headlessui/react";
+import queryDatabase from "../tools/queryDatabase.js";
 
 const ReservationForm = ({
   partySize,
@@ -13,6 +14,7 @@ const ReservationForm = ({
   toggle,
   setToggle,
   handleBookingInfoChange,
+  bookingInfo,
 }) => {
   return (
     <Transition
@@ -38,6 +40,7 @@ const ReservationForm = ({
         onClick={() => {
           handleBookingInfoChange("partySize", selectedPartySize);
           setToggle(!toggle);
+          queryDatabase(bookingInfo.partySize, bookingInfo.date);
         }}
         type="button"
         className="my-2 cursor-default rounded-lg bg-white py-2 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"

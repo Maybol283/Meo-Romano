@@ -12,10 +12,26 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/{any}', function ($any = null) {
-    if ($any && File::exists(public_path("frontend/$any"))) {
-        return File::get(public_path("frontend/$any"));
+// Serve the frontend HTML at the root URL ("/")
+
+
+
+Route::get('/', function () {
+    return File::get(public_path('frontend/index.html'));
+});
+
+// Serve CSS and JS assets from the assets folder
+Route::get('assets/{file}', function ($file) {
+    $filePath = public_path("frontend/assets/$file");
+
+    if (File::exists($filePath)) {
+        $fileContents = File::get($filePath);
+        $contentType = mime_content_type($filePath);
+
+        return response($fileContents)
+            ->header('Content-Type', $contentType);
     }
 
-    return File::get(public_path('frontend/index.html'));
-})->where('any', '.*');
+    // Handle 404 for assets that do not exist
+    abort(404);
+})->where('file', '.*');
