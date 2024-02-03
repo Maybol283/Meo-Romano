@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('party_id')->constrained('parties');
-            $table->foreignId('time_slot_id')->constrained('time_slots');
+            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
+            $table->string('time_slot');
+            $table->integer('party_size');
             $table->date('date');
             $table->timestamps();
         });
