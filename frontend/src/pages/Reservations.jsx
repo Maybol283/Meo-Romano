@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import dateFormatter from "../tools/dateFormatter";
 import ReservationForm from "../components/ReservationForm.jsx";
+import AvailabilityCard from "../components/AvailabilityCard.jsx";
+import queryDatabase from "../tools/queryDatabase.js";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export default function Reservations() {
   const [selectedPartySize, setSelectedPartySize] = useState(partySize[0]);
-  const [toggle, setToggle] = useState(true);
+  const [continueToggle, setContinueToggle] = useState(true);
   const [date, setDate] = useState(Date());
   const [bookingInfo, setBookingInfo] = useState({
     name: null,
@@ -15,7 +17,7 @@ export default function Reservations() {
     partySize: 1,
     email: null,
     date: dateFormatter(new Date()),
-    time: "00:00",
+    timeSlot: [],
   });
 
   function handleBookingInfoChange(fieldName, value) {
@@ -25,8 +27,12 @@ export default function Reservations() {
     }));
   }
 
+  useEffect(() => {
+    console.log(bookingInfo); // Check if this updates after queryDatabase runs
+  }, [bookingInfo.timeSlot]);
+
   function dateSelect(dateValue) {
-    const formattedDate = dateFormatter(dateValue); //format the data into DD/MM/YYYY before state update
+    const formattedDate = dateFormatter(dateValue); //format the data into YYYY-MM-DD  before state update
     handleBookingInfoChange("date", formattedDate);
   }
 
@@ -44,14 +50,16 @@ export default function Reservations() {
           setSelectedPartySize={setSelectedPartySize}
           date={date}
           dateSelect={dateSelect}
-          toggle={toggle}
-          setToggle={setToggle}
+          continueToggle={continueToggle}
+          setContinueToggle={setContinueToggle}
           handleBookingInfoChange={handleBookingInfoChange}
           bookingInfo={bookingInfo}
+          setBookingInfo={setBookingInfo}
+          queryDatabase={queryDatabase}
         />
         <Transition
           as="div"
-          show={!toggle}
+          show={false}
           enter="transition-opacity duration-600 ease-out"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -69,6 +77,7 @@ export default function Reservations() {
             </span>
           </div>
         </Transition>
+        <AvailabilityCard Availability={bookingInfo.timeSlot} />
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import PartyListBox from "./PartyListBox";
 import { Transition } from "@headlessui/react";
-import queryDatabase from "../tools/queryDatabase.js";
 
 const ReservationForm = ({
   partySize,
@@ -11,15 +10,17 @@ const ReservationForm = ({
   setSelectedPartySize,
   date,
   dateSelect,
-  toggle,
-  setToggle,
+  continueToggle,
+  setContinueToggle,
   handleBookingInfoChange,
   bookingInfo,
+  setBookingInfo,
+  queryDatabase,
 }) => {
   return (
     <Transition
       as="div"
-      show={toggle}
+      show={continueToggle}
       enter="transition-opacity duration-300 ease-out"
       enterFrom="opacity-0"
       enterTo="opacity-100"
@@ -38,9 +39,17 @@ const ReservationForm = ({
       <Calendar value={date} onClickDay={dateSelect} className="md:w-[500px]" />
       <button
         onClick={() => {
-          handleBookingInfoChange("partySize", selectedPartySize);
-          setToggle(!toggle);
-          queryDatabase(bookingInfo.partySize, bookingInfo.date);
+          setContinueToggle(!continueToggle);
+          queryDatabase(bookingInfo.partySize, bookingInfo.date)
+            .then((AvailabilitySlots) => {
+              handleBookingInfoChange("timeSlot", AvailabilitySlots);
+            })
+            .catch((error) => {
+              console.error(
+                "Error:",
+                error.response ? error.response.data : error.message
+              );
+            });
         }}
         type="button"
         className="my-2 cursor-default rounded-lg bg-white py-2 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
