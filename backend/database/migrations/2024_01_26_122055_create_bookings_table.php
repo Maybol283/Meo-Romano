@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->string('time_start');
-            $table->integer('party_size');
+            $table->string('time_slot');
+            $table->integer('tables_needed');
             $table->date('date');
             $table->timestamps();
         });

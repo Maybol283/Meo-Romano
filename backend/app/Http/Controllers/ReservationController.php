@@ -3,21 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Booking;
 
 class ReservationController extends Controller
 {
     public function queryReservations(Request $request)
     {
         // Access the data sent from the front-end
-        $partySize = $request->input('partySize');
         $date = $request->input('date');
+        $partySize = $request->input('partySize');
+        $availableSlots = [];
+        
+        //Predefined timeslots
+        $timeSlots = ['16:00-18:00', '18:00-20:00', '20:00-22:00'];
 
-        // Perform your logic here (e.g., query the database)
-        \Log::info('Received partySize: ' . $partySize);
-        \Log::info('Received date: ' . $date);
+        // Query the database to see which times are available
+        foreach ($timeSlots as $timeSlot) {
+            if (Booking::isSlotAvailable($date, $timeSlot, $partySize)) {
+                $availableSlots[] = $timeSlot;
+            }
+        }
         // Return a response
         return response()->json([
-            'Received partySize' => $partySize,
+            'availableSlots' => $availableSlots,
             'Received date' => $date,
             // Include any other necessary data in the response
         ]);

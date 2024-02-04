@@ -2,8 +2,17 @@ import axios from 'axios'
 
 export default function queryDatabase(partySize, date) {
     // Prepare the data
+    //Tables are for two only so even if one person it will consume two seats
+    function checkPartySize(partySize) {
+      if (partySize % 2 === 0) {
+        return partySize;
+      } else {
+        return partySize + 1;
+      }
+    }
+    
     const data = {
-      partySize: partySize,
+      tablesNeeded: checkPartySize(partySize),
       date: date
     };
   
