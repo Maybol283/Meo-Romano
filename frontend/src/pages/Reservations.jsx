@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import dateFormatter from "../tools/dateFormatter";
-import ReservationForm from "../components/ReservationForm.jsx";
+import ReservationCalenderForm from "../components/ReservationCalenderForm.jsx";
 import AvailabilityCard from "../components/AvailabilityCard.jsx";
 import queryDatabase from "../tools/queryDatabase.js";
+import ContactInfo from "../components/ContactInfo.jsx";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export default function Reservations() {
+  const [selectToggle, setSelectToggle] = useState(true);
   const [selectedPartySize, setSelectedPartySize] = useState(partySize[0]);
   const [continueToggle, setContinueToggle] = useState(true);
   const [date, setDate] = useState(Date());
+  const [availableTimes, setAvailableTimes] = useState([]);
   const [bookingInfo, setBookingInfo] = useState({
-    name: null,
+    firstName: null,
+    lastName: null,
     number: null,
     partySize: 1,
     email: null,
@@ -28,8 +32,8 @@ export default function Reservations() {
   }
 
   useEffect(() => {
-    console.log(bookingInfo); // Check if this updates after queryDatabase runs
-  }, [bookingInfo.timeSlot]);
+    console.log(bookingInfo);
+  }, [bookingInfo]);
 
   function dateSelect(dateValue) {
     const formattedDate = dateFormatter(dateValue); //format the data into YYYY-MM-DD  before state update
@@ -42,9 +46,11 @@ export default function Reservations() {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center overflow-hidden relative z-5">
-      <h1 className="relative z-9 bottom-1/3 font-bold">Reservations</h1>
-      <div className="relative w-full max-w-md ">
-        <ReservationForm
+      <h1 className="relative z-9 sm:bottom-1/3 bottom-[40%] font-bold">
+        Reservations
+      </h1>
+      <div className="relative w-full max-w-md sm:bottom-0 bottom-10">
+        <ReservationCalenderForm
           partySize={partySize}
           selectedPartySize={selectedPartySize}
           setSelectedPartySize={setSelectedPartySize}
@@ -56,6 +62,7 @@ export default function Reservations() {
           bookingInfo={bookingInfo}
           setBookingInfo={setBookingInfo}
           queryDatabase={queryDatabase}
+          setAvailableTimes={setAvailableTimes}
         />
         <Transition
           as="div"
@@ -77,7 +84,37 @@ export default function Reservations() {
             </span>
           </div>
         </Transition>
-        <AvailabilityCard Availability={bookingInfo.timeSlot} />
+        <Transition
+          className="absolute inset-x-0 -inset-y-40 flex flex-col items-center"
+          as="div"
+          show={!continueToggle}
+          enter="transition-opacity duration-600 ease-out"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-600 ease-in"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <AvailabilityCard
+            handleBookingInfoChange={handleBookingInfoChange}
+            Availability={availableTimes}
+            selectToggle={selectToggle}
+            setSelectToggle={setSelectToggle}
+          />
+        </Transition>
+        <Transition
+          className="absolute inset-x-0 -inset-y-48  flex flex-col items-center"
+          as="div"
+          show={!selectToggle}
+          enter="transition-opacity delay-500 duration-600 ease-out"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-600 ease-in"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <ContactInfo />
+        </Transition>
       </div>
     </div>
   );

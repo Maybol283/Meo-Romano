@@ -6,7 +6,7 @@ export default function queryDatabase(partySize, date) {
     function checkPartySize(partySize) {
         return partySize % 2 === 0 ? partySize : partySize + 1;
     }
-
+ 
     const data = {
         tablesNeeded: checkPartySize(partySize),
         date: date,

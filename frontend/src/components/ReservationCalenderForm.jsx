@@ -4,7 +4,7 @@ import "react-calendar/dist/Calendar.css";
 import PartyListBox from "./PartyListBox";
 import { Transition } from "@headlessui/react";
 
-const ReservationForm = ({
+const ReservationCalenderForm = ({
   partySize,
   selectedPartySize,
   setSelectedPartySize,
@@ -12,10 +12,9 @@ const ReservationForm = ({
   dateSelect,
   continueToggle,
   setContinueToggle,
-  handleBookingInfoChange,
   bookingInfo,
-  setBookingInfo,
   queryDatabase,
+  setAvailableTimes,
 }) => {
   return (
     <Transition
@@ -42,7 +41,7 @@ const ReservationForm = ({
           setContinueToggle(!continueToggle);
           queryDatabase(bookingInfo.partySize, bookingInfo.date)
             .then((AvailabilitySlots) => {
-              handleBookingInfoChange("timeSlot", AvailabilitySlots);
+              setAvailableTimes(AvailabilitySlots);
             })
             .catch((error) => {
               console.error(
@@ -60,4 +59,4 @@ const ReservationForm = ({
   );
 };
 
-export default ReservationForm;
+export default ReservationCalenderForm;
