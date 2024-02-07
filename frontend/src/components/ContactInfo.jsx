@@ -1,28 +1,42 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+import { useState } from "react";
 
-export default function ContactInfo() {
+export default function ContactInfo({
+  handleBookingInfoChange,
+  setContinueToggle,
+}) {
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Update bookingInfo state in parent component for each field
+    Object.entries(formValues).forEach(([fieldName, value]) => {
+      handleBookingInfoChange(fieldName, value);
+    });
+    setContinueToggle((prevValue) => prevValue + 1);
+  };
+
   return (
-    <form className="absolute z-11">
+    <form className="absolute z-11" onSubmit={handleSubmit}>
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
             Personal Information
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
-            Use a permanent address where you can receive mail.
+            Your email will be used to access your bookings
           </p>
 
           <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
@@ -35,11 +49,14 @@ export default function ContactInfo() {
               </label>
               <div className="mt-2">
                 <input
+                  required
                   type="text"
-                  name="first-name"
+                  name="firstName"
                   id="first-name"
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formValues.firstName}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -53,11 +70,14 @@ export default function ContactInfo() {
               </label>
               <div className="mt-2">
                 <input
+                  required
                   type="text"
-                  name="last-name"
+                  name="lastName"
                   id="last-name"
                   autoComplete="family-name"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formValues.lastName}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -71,11 +91,37 @@ export default function ContactInfo() {
               </label>
               <div className="mt-2">
                 <input
+                  required
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formValues.email}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="phone-number"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Phone Number
+              </label>
+              <div className="mt-2">
+                <input
+                  required
+                  id="phone-number"
+                  name="phoneNumber"
+                  type="tel"
+                  autoComplete="tel"
+                  title="Phone number should only contain digits."
+                  pattern="\d*"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formValues.phoneNumber}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -87,8 +133,11 @@ export default function ContactInfo() {
         <button
           type="button"
           className="text-sm font-semibold leading-6 text-gray-900"
+          onClick={() => {
+            setContinueToggle((prevValue) => prevValue - 1);
+          }}
         >
-          Cancel
+          Back
         </button>
         <button
           type="submit"

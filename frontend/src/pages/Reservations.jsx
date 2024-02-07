@@ -5,21 +5,21 @@ import ReservationCalenderForm from "../components/ReservationCalenderForm.jsx";
 import AvailabilityCard from "../components/AvailabilityCard.jsx";
 import queryDatabase from "../tools/queryDatabase.js";
 import ContactInfo from "../components/ContactInfo.jsx";
+import InfoCardCheck from "../components/InfoCheckCard.jsx";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export default function Reservations() {
-  const [selectToggle, setSelectToggle] = useState(true);
+  const [continueToggle, setContinueToggle] = useState(0);
   const [selectedPartySize, setSelectedPartySize] = useState(partySize[0]);
-  const [continueToggle, setContinueToggle] = useState(true);
   const [date, setDate] = useState(Date());
   const [availableTimes, setAvailableTimes] = useState([]);
   const [bookingInfo, setBookingInfo] = useState({
     firstName: null,
     lastName: null,
-    number: null,
+    phoneNumber: null,
     partySize: 1,
-    email: null,
+    email: "",
     date: dateFormatter(new Date()),
     timeSlot: [],
   });
@@ -32,8 +32,8 @@ export default function Reservations() {
   }
 
   useEffect(() => {
-    console.log(bookingInfo);
-  }, [bookingInfo]);
+    console.log(continueToggle);
+  }, [continueToggle]);
 
   function dateSelect(dateValue) {
     const formattedDate = dateFormatter(dateValue); //format the data into YYYY-MM-DD  before state update
@@ -46,10 +46,10 @@ export default function Reservations() {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center overflow-hidden relative z-5">
-      <h1 className="relative z-9 sm:bottom-1/3 bottom-[40%] font-bold">
+      <h1 className="relative z-9 sm:bottom-[43%] bottom-[40%]">
         Reservations
       </h1>
-      <div className="relative w-full max-w-md sm:bottom-0 bottom-10">
+      <div className="relative w-full max-w-md sm:bottom-12 bottom-20">
         <ReservationCalenderForm
           partySize={partySize}
           selectedPartySize={selectedPartySize}
@@ -66,20 +66,20 @@ export default function Reservations() {
         />
         <Transition
           as="div"
-          show={false}
-          enter="transition-opacity duration-600 ease-out"
+          show={continueToggle == 1}
+          enter="transition-opacity duration-600 delay-300 ease-out"
           enterFrom="opacity-0"
           enterTo="opacity-100"
           leave="transition-opacity duration-600 ease-in"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
+          className="absolute"
         >
-          <p>Checking Availability</p>
           <div
-            className="absolute left-44 bottom-10 flex flex-col justify-center items-center h-20 w-20 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            className="relative left-44 bottom-24 flex flex-col justify-center items-center h-20 w-20 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
             role="status"
           >
-            <span className="absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+            <span className="relative !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
               Loading...
             </span>
           </div>
@@ -87,8 +87,8 @@ export default function Reservations() {
         <Transition
           className="absolute inset-x-0 -inset-y-40 flex flex-col items-center"
           as="div"
-          show={!continueToggle}
-          enter="transition-opacity duration-600 ease-out"
+          show={continueToggle == 2}
+          enter="transition-opacity duration-600 delay-300 ease-out"
           enterFrom="opacity-0"
           enterTo="opacity-100"
           leave="transition-opacity duration-600 ease-in"
@@ -98,14 +98,14 @@ export default function Reservations() {
           <AvailabilityCard
             handleBookingInfoChange={handleBookingInfoChange}
             Availability={availableTimes}
-            selectToggle={selectToggle}
-            setSelectToggle={setSelectToggle}
+            continueToggle={continueToggle}
+            setContinueToggle={setContinueToggle}
           />
         </Transition>
         <Transition
           className="absolute inset-x-0 -inset-y-48  flex flex-col items-center"
           as="div"
-          show={!selectToggle}
+          show={continueToggle == 3}
           enter="transition-opacity delay-500 duration-600 ease-out"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -113,7 +113,26 @@ export default function Reservations() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <ContactInfo />
+          <ContactInfo
+            handleBookingInfoChange={handleBookingInfoChange}
+            setContinueToggle={setContinueToggle}
+          />
+        </Transition>
+        <Transition
+          className="absolute inset-x-0 -inset-y-48  flex flex-col items-center"
+          as="div"
+          show={continueToggle == 4}
+          enter="transition-opacity delay-500 duration-600 ease-out"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-600 ease-in"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <InfoCardCheck
+            bookingInfo={bookingInfo}
+            setContinueToggle={setContinueToggle}
+          />
         </Transition>
       </div>
     </div>

@@ -19,7 +19,7 @@ const ReservationCalenderForm = ({
   return (
     <Transition
       as="div"
-      show={continueToggle}
+      show={continueToggle == 0}
       enter="transition-opacity duration-300 ease-out"
       enterFrom="opacity-0"
       enterTo="opacity-100"
@@ -38,7 +38,10 @@ const ReservationCalenderForm = ({
       <Calendar value={date} onClickDay={dateSelect} className="md:w-[500px]" />
       <button
         onClick={() => {
-          setContinueToggle(!continueToggle);
+          setContinueToggle((prevToggle) => prevToggle + 1);
+          setTimeout(() => {
+            setContinueToggle((prevToggle) => prevToggle + 1);
+          }, 1000);
           queryDatabase(bookingInfo.partySize, bookingInfo.date)
             .then((AvailabilitySlots) => {
               setAvailableTimes(AvailabilitySlots);

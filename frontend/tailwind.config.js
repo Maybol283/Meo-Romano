@@ -6,7 +6,14 @@ export default {
   ],
   theme: {
     
-    extend: {},
+    extend: {
+      fontFamily: {
+        'playfair': ['"Playfair Display"', 'serif'], // Define a custom name for your font
+      },
+      centerScreen: {
+        
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/forms')
