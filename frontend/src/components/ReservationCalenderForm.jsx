@@ -3,19 +3,23 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import PartyListBox from "./PartyListBox";
 import { Transition } from "@headlessui/react";
+import getTimeSlot from "../tools/queryDatabase";
 
 const ReservationCalenderForm = ({
   partySize,
   selectedPartySize,
   setSelectedPartySize,
-  date,
   dateSelect,
   continueToggle,
   setContinueToggle,
   bookingInfo,
-  queryDatabase,
   setAvailableTimes,
 }) => {
+  const lastDate = new Date();
+  lastDate.setMonth(lastDate.getMonth() + 3); // Add 3 months to current date
+  const firstDate = new Date();
+  firstDate.setDate(firstDate.getDate() + 1);
+
   return (
     <Transition
       as="div"
@@ -35,14 +39,20 @@ const ReservationCalenderForm = ({
           setSelected={setSelectedPartySize}
         />
       </div>
-      <Calendar value={date} onClickDay={dateSelect} className="md:w-[500px]" />
+      <Calendar
+        maxDetail={"month"}
+        minDate={firstDate}
+        maxDate={lastDate}
+        onClickDay={dateSelect}
+        className="md:w-[500px] bg-white"
+      />
       <button
         onClick={() => {
           setContinueToggle((prevToggle) => prevToggle + 1);
           setTimeout(() => {
             setContinueToggle((prevToggle) => prevToggle + 1);
           }, 1000);
-          queryDatabase(bookingInfo.partySize, bookingInfo.date)
+          getTimeSlot(bookingInfo.partySize, bookingInfo.date)
             .then((AvailabilitySlots) => {
               setAvailableTimes(AvailabilitySlots);
             })

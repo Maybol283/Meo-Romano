@@ -12,7 +12,6 @@ const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 export default function Reservations() {
   const [continueToggle, setContinueToggle] = useState(0);
   const [selectedPartySize, setSelectedPartySize] = useState(partySize[0]);
-  const [date, setDate] = useState(Date());
   const [availableTimes, setAvailableTimes] = useState([]);
   const [bookingInfo, setBookingInfo] = useState({
     firstName: null,
@@ -32,8 +31,8 @@ export default function Reservations() {
   }
 
   useEffect(() => {
-    console.log(continueToggle);
-  }, [continueToggle]);
+    console.log(bookingInfo);
+  }, [bookingInfo]);
 
   function dateSelect(dateValue) {
     const formattedDate = dateFormatter(dateValue); //format the data into YYYY-MM-DD  before state update
@@ -54,7 +53,6 @@ export default function Reservations() {
           partySize={partySize}
           selectedPartySize={selectedPartySize}
           setSelectedPartySize={setSelectedPartySize}
-          date={date}
           dateSelect={dateSelect}
           continueToggle={continueToggle}
           setContinueToggle={setContinueToggle}
