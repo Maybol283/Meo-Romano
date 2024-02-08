@@ -1,3 +1,5 @@
+import { postReservation } from "../tools/queryDatabase";
+
 export default function InfoCardCheck({ bookingInfo, setContinueToggle }) {
   const fieldNames = {
     Date: bookingInfo.date,
@@ -54,7 +56,13 @@ export default function InfoCardCheck({ bookingInfo, setContinueToggle }) {
         </ul>
       </div>
       <div className="pt-5">
-        <button onClick={() => {}}>Submit</button>
+        <button
+          onClick={() => {
+            postReservation(bookingInfo);
+          }}
+        >
+          Submit
+        </button>
       </div>
     </div>
   );

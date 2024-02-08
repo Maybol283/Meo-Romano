@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+
+    
+    
     use HasFactory;
     protected $fillable = ['date', 'time_slot', 'tables_needed', 'customer_id'];
 

@@ -20,6 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/reservations/query', [ReservationController::class, 'queryReservations'])->name('reservations.query');
+Route::get('/reservations/query', [ReservationController::class, 'getTimeSlot'])->name('reservations.query');
+
+Route::post('reservations/store', [ReservationController::class, 'storeBooking'])->name('reservations.store');
 
 

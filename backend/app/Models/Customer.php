@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+    
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone_number'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'phone_number'];
 
     // Define a one-to-many relationship with the Booking model
     public function bookings()
