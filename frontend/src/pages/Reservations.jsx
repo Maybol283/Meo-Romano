@@ -6,6 +6,7 @@ import AvailabilityCard from "../components/AvailabilityCard.jsx";
 import queryDatabase from "../tools/queryDatabase.js";
 import ContactInfo from "../components/ContactInfo.jsx";
 import InfoCardCheck from "../components/InfoCheckCard.jsx";
+import BookingConfirmation from "../components/BookingConfirmation.jsx";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -128,6 +129,22 @@ export default function Reservations() {
           leaveTo="opacity-0"
         >
           <InfoCardCheck
+            bookingInfo={bookingInfo}
+            setContinueToggle={setContinueToggle}
+          />
+        </Transition>
+        <Transition
+          className="absolute inset-x-0 -inset-y-48  flex flex-col items-center"
+          as="div"
+          show={continueToggle == 5}
+          enter="transition-opacity delay-500 duration-600 ease-out"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-600 ease-in"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <BookingConfirmation
             bookingInfo={bookingInfo}
             setContinueToggle={setContinueToggle}
           />

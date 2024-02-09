@@ -35,3 +35,18 @@ Route::get('assets/{file}', function ($file) {
     // Handle 404 for assets that do not exist
     abort(404);
 })->where('file', '.*');
+
+
+
+Route::get('/booking-mail', function () {
+
+    $data = [
+        'first_name' => 'John',
+        'time_slot' => '10:00 AM',
+        'date' => '2024-02-09'
+    ];
+
+    $stringData = implode(', ', $data);
+    
+    return view('emails.bookingMail', ['data' => $data]);
+});

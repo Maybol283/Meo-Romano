@@ -58,6 +58,7 @@ export default function InfoCardCheck({ bookingInfo, setContinueToggle }) {
       <div className="pt-5">
         <button
           onClick={() => {
+            setContinueToggle(5);
             postReservation(bookingInfo);
           }}
         >
