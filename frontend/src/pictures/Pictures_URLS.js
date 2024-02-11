@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === "production";
-const basePath = isProduction ? "/images" : "/src/images";
+const basePath = isProduction ? "/pictures" : "/src/pictures";
 
 const images = {
     gallery: [

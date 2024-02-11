@@ -7,9 +7,18 @@ use App\Models\Booking;
 use App\Models\Customer;
 use App\Mail\BookingMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Services\PinGenerator; // Correct namespace
 
 class ReservationController
 {
+    protected $pinGenerator;
+
+    public function __construct(PinGenerator $pinGenerator)
+    {
+        $this->pinGenerator = $pinGenerator;
+    }
+
 
     
     public function getTimeSlot(Request $request)
@@ -41,6 +50,8 @@ class ReservationController
 
     public function storeBooking(Request $request)
     {
+
+       
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -58,12 +69,15 @@ class ReservationController
             'email' => $validatedData['email'],
         ]);
 
+
+        $pin =  $this->pinGenerator->generateUniquePIN(); // generate a unique pin for each booking
         if ($customer) {
             $booking = Booking::create([
                 'customer_id' => $customer->id,
                 'tables_needed' => $validatedData['tables_needed'],
                 'time_slot' => $validatedData['time_slot'],
                 'date' => $validatedData['date'],
+                'pin' =>  $pin
             ]);
 
             // Prepare the data to send in the email
@@ -72,6 +86,7 @@ class ReservationController
                 'last_name' => $validatedData['last_name'],
                 'time_slot' => $validatedData['time_slot'],
                 'date' => $validatedData['date'],
+                'pin' => $pin
             ];
 
            

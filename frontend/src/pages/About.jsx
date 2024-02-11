@@ -1,4 +1,4 @@
-import images from "../images/Image_URLS";
+import pictures from "../pictures/Pictures_URLS";
 
 export default function About() {
   return (
@@ -16,9 +16,9 @@ export default function About() {
         </div>
         <div className="mb-32 overflow-hidden place-self-center">
           <img
-            src={images.about[0].url}
+            src={pictures.about[0].url}
             className="w-80 md:w-9/12  h-auto custom-radius"
-            alt={images.about[0].url}
+            alt={pictures.about[0].url}
           />
         </div>
         <div className="max-w-80 place-self-center md:order-last ">

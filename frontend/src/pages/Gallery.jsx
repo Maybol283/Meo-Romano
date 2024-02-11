@@ -1,11 +1,11 @@
 import { useSpring, animated } from "@react-spring/web";
-import images from "../images/Image_URLS";
+import pictures from "../pictures/Pictures_URLS";
 
 export default function Gallery() {
   return (
     <>
       <div className="flex flex-wrap place-content-center md:p-5 gap-2">
-        {images.gallery.map((item, index) => {
+        {pictures.gallery.map((item, index) => {
           const props = useSpring({
             from: { opacity: 0 },
             to: { opacity: 1 },

@@ -13,37 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Serve the frontend HTML at the root URL ("/")
-
-
-
 Route::get('/', function () {
-    return File::get(public_path('frontend/index.html'));
+    return view('frontend'); // Assuming you have a 'welcome.blade.php' in your resources/views directory
 });
 
-// Serve CSS and JS assets from the assets folder
-Route::get('assets/{file}', function ($file) {
-    $filePath = public_path("frontend/assets/$file");
 
-    if (File::exists($filePath)) {
-        $fileContents = File::get($filePath);
-        $contentType = mime_content_type($filePath);
-
-        return response($fileContents)
-            ->header('Content-Type', $contentType);
-    }
-
-    // Handle 404 for assets that do not exist
-    abort(404);
-})->where('file', '.*');
-
-
-
-Route::get('/booking-mail', function () {
+Route::get('/booking-mail', function () {  //test route for email styling
 
     $data = [
         'first_name' => 'John',
         'time_slot' => '10:00 AM',
-        'date' => '2024-02-09'
+        'date' => '2024-02-09',
+        'pin'  => '73841a',
     ];
 
     $stringData = implode(', ', $data);
