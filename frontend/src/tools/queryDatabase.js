@@ -8,8 +8,6 @@ function checkPartySize(partySize) {
 export default async function getTimeSlot(partySize, date) {
     // Adjust party size
     
-    
- 
     const data = {
         tablesNeeded: checkPartySize(partySize),
         date: date,
@@ -24,7 +22,8 @@ export default async function getTimeSlot(partySize, date) {
     }
 }
 
-export async function postReservation (bookingInfo){
+//post the bookingInfo to database
+export async function postReservation (bookingInfo){ 
 
     const booking = {
         first_name: bookingInfo.firstName,
@@ -43,5 +42,21 @@ export async function postReservation (bookingInfo){
     } catch (error) {
       console.error('Error:', error.response ? error.response.data : error.message);
     }
+
+    
     
 }
+
+//retrieve columns: date, time, first_name and number_of_guests
+export async function getBookingInfo(pin){
+
+    try{
+        const response = await axios.get('http://127.0.0.1:8000/api/booking-manager', pin);
+        return response.data
+  
+      } catch (error) {
+        console.error('Error:', error.response ? error.response.data : error.message);
+      }
+}
+
+console.log(getBookingInfo('RfAFDQ'));

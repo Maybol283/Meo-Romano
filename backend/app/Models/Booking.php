@@ -25,6 +25,13 @@ class Booking extends Model
         return ($totalBookedTables + $tablesNeeded) <= $totalTables;
     }
 
+    public static function fetchUpdateInfo($pin){
+        
+        $updateInfo = self::where('pin', $pin);
+
+        return $updateInfo;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

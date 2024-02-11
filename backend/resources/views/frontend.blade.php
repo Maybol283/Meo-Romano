@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>React App</title>
-    <link rel="stylesheet" href="{{ asset('frontend/assets/index-6e2d9d38.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ asset('dist/assets/index-6e2d9d38.css') }}">
 </head>
 <body>
     <div id="root"></div>
-    <script type="module" src="{{ asset('frontend/assets/index-c66d8130.js') }}"></script>
-</body>
+    <script type="module" src="{{ asset('dist/assets/index-c9e00012.js') }}"></script>
+</body> 
 </html>

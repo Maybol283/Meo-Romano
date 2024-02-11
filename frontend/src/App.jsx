@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Reservations from "./pages/Reservations";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import BookingManager from "./pages/BookingManager.jsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/reservations" element={<Reservations />} />
+        <Route path="/booking-manager" element={<BookingManager />} />
       </Routes>
       <Footer />
     </BrowserRouter>

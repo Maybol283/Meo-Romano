@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Serve the frontend HTML at the root URL ("/")
-Route::get('/', function () {
-    return view('frontend'); // Assuming you have a 'welcome.blade.php' in your resources/views directory
-});
-
 
 Route::get('/booking-mail', function () {  //test route for email styling
 
@@ -31,3 +26,11 @@ Route::get('/booking-mail', function () {  //test route for email styling
     
     return view('emails.bookingMail', ['data' => $data]);
 });
+
+// Serve the frontend HTML at the root URL ("/")
+Route::get('/{any}', function () {
+    return view('frontend'); // Ensure this is the entry point view of your SPA
+})->where('any', '.*'); // This captures all routes
+
+
+

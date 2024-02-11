@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Home.css";
-import Testimonials from "./Testimonials";
+import Testimonials from "../components/Testimonials";
 import pictures from "../pictures/Pictures_URLS";
 
 export default function Home() {

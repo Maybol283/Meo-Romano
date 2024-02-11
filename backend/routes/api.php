@@ -24,4 +24,4 @@ Route::get('/reservations/query', [ReservationController::class, 'getTimeSlot'])
 
 Route::post('reservations/store', [ReservationController::class, 'storeBooking'])->name('reservations.store');
 
-
+Route::get('/booking-manager', [ReservationController::class, 'updateInfo'])->name('booking.manager');

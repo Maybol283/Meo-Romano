@@ -101,4 +101,16 @@ class ReservationController
         // Return an error response if the customer or booking couldn't be created
         return response()->json(['message' => 'An error occurred'], 500);
     }
+
+    public function updateInfo(Request $request){
+        $pin = $request->input('pin');
+        $updateInfo = Booking::fetchUpdateInfo($pin);
+        if ($updateInfo) {
+            // If you need to manipulate or return the data, do it here
+            return response()->json($updateInfo); // Convert the result to JSON
+        } else {
+            return response()->json(['message' => 'Booking not found'], 404);
+        }
+    }
+
 }
