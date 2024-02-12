@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 
 
-class Booking extends Model
+class Bookings extends Model
 {
 
     
     
     use HasFactory;
-    protected $fillable = ['date', 'time_slot', 'tables_needed', 'customer_id', 'pin'];
+    protected $fillable = ['date', 'time_slot', 'tables_needed', 'pin', 'party_size',
+    'first_name', 'last_name', 'email', 'phone_number',];
 
     public static function isSlotAvailable($date, $timeSlot, $tablesNeeded)
     {
@@ -27,13 +28,10 @@ class Booking extends Model
 
     public static function fetchUpdateInfo($pin){
         
-        $updateInfo = self::where('pin', $pin);
+        $updateInfo = self::where('pin', $pin)->first(['date', 'party_size', 'time_slot', 'first_name']);
 
         return $updateInfo;
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+   
 }

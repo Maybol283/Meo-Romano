@@ -31,6 +31,7 @@ export async function postReservation (bookingInfo){
         phone_number: bookingInfo.phoneNumber,
         email: bookingInfo.email,
         tables_needed: checkPartySize(bookingInfo.partySize),
+        party_size: bookingInfo.partySize,
         time_slot: bookingInfo.timeSlot,
         date: bookingInfo.date
     };
@@ -49,14 +50,14 @@ export async function postReservation (bookingInfo){
 
 //retrieve columns: date, time, first_name and number_of_guests
 export async function getBookingInfo(pin){
-
-    try{
-        const response = await axios.get('http://127.0.0.1:8000/api/booking-manager', pin);
-        return response.data
-  
-      } catch (error) {
+    try {
+        // Append the pin as a query parameter in the URL
+        const url = `http://127.0.0.1:8000/api/booking-manager?pin=${pin}`;
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error) {
         console.error('Error:', error.response ? error.response.data : error.message);
-      }
+    }
 }
 
-console.log(getBookingInfo('RfAFDQ'));
+getBookingInfo('FPHDwn').then(data => console.log(data));

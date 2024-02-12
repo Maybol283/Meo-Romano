@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Booking;
-use App\Models\Customer;
+use App\Models\Bookings;
 use App\Mail\BookingMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Services\PinGenerator; // Correct namespace
+use Illuminate\Support\Facades\Log;
 
 class ReservationController
 {
@@ -23,12 +23,16 @@ class ReservationController
     
     public function getTimeSlot(Request $request)
     {   
-        Booking::truncate();
-        Customer::truncate();
-
+        Bookings::truncate();
+        Log::info('Received PIN: ' . $request);
         // Access the data sent from the front-end
-        $date = $request->input('date');
-        $partySize = $request->input('partySize');
+        $validated = $request->validate([
+            'date' => 'required|date',
+            'tablesNeeded' => 'required|integer',
+        ]);
+    
+        $date = $validated['date'];
+        $tablesNeeded = $validated['tablesNeeded'];
         $availableSlots = [];
         
         //Predefined timeslots
@@ -36,7 +40,7 @@ class ReservationController
 
         // Query the database to see which times are available
         foreach ($timeSlots as $timeSlot) {
-            if (Booking::isSlotAvailable($date, $timeSlot, $partySize)) {
+            if (Bookings::isSlotAvailable($date, $timeSlot, $tablesNeeded)) {
                 $availableSlots[] = $timeSlot;
             }
         }
@@ -50,8 +54,6 @@ class ReservationController
 
     public function storeBooking(Request $request)
     {
-
-       
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -60,26 +62,24 @@ class ReservationController
             'tables_needed' => 'required|integer',
             'time_slot' => 'required|string|max:255',
             'date' => 'required|date',
+            'party_size' => 'required|integer'
         ]);
 
-        $customer = Customer::create([
+        $pin = $this->pinGenerator->generateUniquePIN(); // Generate a unique pin for each booking
+
+        $booking = Bookings::create([
             'first_name' => $validatedData['first_name'],
             'last_name' => $validatedData['last_name'],
             'phone_number' => $validatedData['phone_number'],
             'email' => $validatedData['email'],
+            'tables_needed' => $validatedData['tables_needed'],
+            'time_slot' => $validatedData['time_slot'],
+            'date' => $validatedData['date'],
+            'pin' => $pin,
+            'party_size' => $validatedData['party_size'],
         ]);
 
-
-        $pin =  $this->pinGenerator->generateUniquePIN(); // generate a unique pin for each booking
-        if ($customer) {
-            $booking = Booking::create([
-                'customer_id' => $customer->id,
-                'tables_needed' => $validatedData['tables_needed'],
-                'time_slot' => $validatedData['time_slot'],
-                'date' => $validatedData['date'],
-                'pin' =>  $pin
-            ]);
-
+        if ($booking) {
             // Prepare the data to send in the email
             $emailData = [
                 'first_name' => $validatedData['first_name'],
@@ -89,8 +89,6 @@ class ReservationController
                 'pin' => $pin
             ];
 
-           
-
             // Send the booking confirmation email
             Mail::to($validatedData['email'])->send(new BookingMail($emailData));
 
@@ -98,13 +96,15 @@ class ReservationController
             return response()->json(['message' => 'Booking successful, confirmation email sent.'], 201);
         }
 
-        // Return an error response if the customer or booking couldn't be created
+        // Return an error response if the booking couldn't be created
         return response()->json(['message' => 'An error occurred'], 500);
     }
 
     public function updateInfo(Request $request){
+
         $pin = $request->input('pin');
-        $updateInfo = Booking::fetchUpdateInfo($pin);
+       
+        $updateInfo = Bookings::fetchUpdateInfo($pin);
         if ($updateInfo) {
             // If you need to manipulate or return the data, do it here
             return response()->json($updateInfo); // Convert the result to JSON
