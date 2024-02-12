@@ -113,4 +113,15 @@ class ReservationController
         }
     }
 
+    public function deleteBooking(Request $request){
+
+        $pin = $request->input('pin');
+        
+        if (Bookings::deleteBooking($pin)) {
+            return response()->json(['message' => 'Booking deleted successfully.']);
+        } else {
+            return response()->json(['message' => 'Booking not found.'], 404);
+        }
+    }
+
 }

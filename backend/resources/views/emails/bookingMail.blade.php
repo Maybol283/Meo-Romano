@@ -4,7 +4,7 @@
     <title>Booking Confirmation</title>
     <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="{{ asset('dist/assets/index-62faa2d3.cs') }}" rel="stylesheet">
+  <link href="{{ asset('dist/assets/index-62faa2d3.css') }}" rel="stylesheet">
 </head>
 <body class="flex place-content-center">
     <div class="bg-gray-100 h-50 w-screen">
@@ -17,9 +17,9 @@
                 <li>Time Slot: <span class="font-semibold">{{ $data['time_slot'] }}</span></li>
                 <li>Date: <span class="font-semibold">{{ $data['date'] }}</span></li>
             </ul>
-            <p class="py-5">to edit your booking enter the following pin on the website link provided</p>
+            <p class="py-5">to edit your booking click the link below</p>
             <p class="text-3xl text-center py-5">{{ $data['pin'] }}</p>
-            <button class="place-self-center"><a href="">Here</a> </button>
+            <button class="place-self-center"><a href="http://localhost:5173/booking-manager?pin={{ $data['pin'] }}" class="place-self-center">Here</a> </button>
             <p class="py-10">We look forward to seeing you!</p>
         </div>
         <div class="px-6 py-4 bg-gray-200 text-sm text-gray-600">

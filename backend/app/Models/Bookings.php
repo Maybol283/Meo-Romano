@@ -33,5 +33,19 @@ class Bookings extends Model
         return $updateInfo;
     }
 
+    public static function deleteBooking($pin){
+
+     $booking = self::where('pin', $pin)->first();
+
+    // If a booking is found, delete it
+    if ($booking) {
+        $booking->delete();
+        return true; // Return true to indicate success
+    }
+
+    // Return false if no booking was found with the given pin
+    return false;
    
+    }
+
 }

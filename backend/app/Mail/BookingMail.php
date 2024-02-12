@@ -39,7 +39,7 @@ class BookingMail extends Mailable
      */
     public function content(): Content
     {
-        \Log::info('Email Data:', $this->data);
+        
 
         return new Content(
             view: 'emails.bookingMail',

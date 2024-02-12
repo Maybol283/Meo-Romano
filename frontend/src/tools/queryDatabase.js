@@ -52,7 +52,7 @@ export async function postReservation (bookingInfo){
 export async function getBookingInfo(pin){
     try {
         // Append the pin as a query parameter in the URL
-        const url = `http://127.0.0.1:8000/api/booking-manager?pin=${pin}`;
+        const url = `http://127.0.0.1:8000/api/booking-manager/update?pin=${pin}`;
         const response = await axios.get(url);
         return response.data;
     } catch (error) {
@@ -60,4 +60,13 @@ export async function getBookingInfo(pin){
     }
 }
 
-getBookingInfo('FPHDwn').then(data => console.log(data));
+export async function deleteBooking(pin){
+    try {
+        // Append the pin as a query parameter in the URL
+        const url = `http://127.0.0.1:8000/api/booking-manager/delete?pin=${pin}`;
+        const response = await axios.delete(url);
+       return response.data
+    } catch (error) {
+        console.error('Error:', error.response ? error.response.data : error.message);
+    }
+}
