@@ -3,7 +3,6 @@ import { useState } from "react";
 export default function ContactInfo({
   handleBookingInfoChange,
   setContinueToggle,
-  bookingInfo,
 }) {
   const [formValues, setFormValues] = useState({
     firstName: "",

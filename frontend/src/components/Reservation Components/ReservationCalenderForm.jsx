@@ -3,7 +3,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import PartyListBox from "./PartyListBox";
 import { Transition } from "@headlessui/react";
-import getTimeSlot from "../tools/queryDatabase";
+import getTimeSlot from "../../tools/queryDatabase";
 
 const ReservationCalenderForm = ({
   partySize,

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import dateFormatter from "../tools/dateFormatter";
-import ReservationCalenderForm from "../components/ReservationCalenderForm.jsx";
-import AvailabilityCard from "../components/AvailabilityCard.jsx";
+import ReservationCalenderForm from "../components/Reservation Components/ReservationCalenderForm.jsx";
+import AvailabilityCard from "../components/Reservation Components/AvailabilityCard.jsx";
 import queryDatabase from "../tools/queryDatabase.js";
-import ContactInfo from "../components/ContactInfo.jsx";
-import InfoCardCheck from "../components/InfoCheckCard.jsx";
-import BookingConfirmation from "../components/BookingConfirmation.jsx";
+import ContactInfo from "../components/Reservation Components/ContactInfo.jsx";
+import InfoCardCheck from "../components/Reservation Components/InfoCheckCard.jsx";
+import BookingConfirmation from "../components/Reservation Components/BookingConfirmation.jsx";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 

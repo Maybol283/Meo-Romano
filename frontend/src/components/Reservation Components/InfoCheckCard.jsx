@@ -1,4 +1,4 @@
-import { postReservation } from "../tools/queryDatabase";
+import { postReservation } from "../../tools/queryDatabase";
 
 export default function InfoCardCheck({ bookingInfo, setContinueToggle }) {
   const fieldNames = {
