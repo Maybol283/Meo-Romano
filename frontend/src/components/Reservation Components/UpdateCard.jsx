@@ -1,12 +1,16 @@
 import { deleteBooking } from "../../tools/queryDatabase";
 import { Transition } from "@headlessui/react";
-export default function UpdateCard({ bookingInfo, isLoading, setIsLoading }) {
+export default function UpdateCard({
+  bookingInfo,
+  continueToggle,
+  setContinueToggle,
+}) {
   return (
-    <div className="flex flex-col pt-10 gap-2 ">
+    <div className="flex flex-col pt-10 gap-2">
       <div className="flex-none sm:flex justify-center items-center ">
         <Transition
           as="div"
-          show={isLoading == 1}
+          show={continueToggle == 3}
           enter="transition-opacity duration-600 ease-out delay-500"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -27,7 +31,7 @@ export default function UpdateCard({ bookingInfo, isLoading, setIsLoading }) {
                   <li className="px-6 py-10 grid grid-cols-3 items-center">
                     <span className="font-black">Date:</span>
                     <span>{bookingInfo.date}</span>
-                    <button onClick={() => handleEdit("date")}>Edit</button>
+                    <button onClick={() => setContinueToggle(1)}>Edit</button>
                   </li>
                   <li className="px-6 py-10 grid grid-cols-3 items-center">
                     <span className="font-black">Number of Guests:</span>
@@ -38,7 +42,7 @@ export default function UpdateCard({ bookingInfo, isLoading, setIsLoading }) {
                   </li>
                   <li className="px-6 py-10 grid grid-cols-3 items-center">
                     <span className="font-black">Time Slot:</span>
-                    <span>{bookingInfo.time}</span>
+                    <span>{bookingInfo.timeSlot}</span>
                     <button onClick={() => handleEdit("timeSlot")}>Edit</button>
                   </li>
                 </ul>
@@ -51,7 +55,7 @@ export default function UpdateCard({ bookingInfo, isLoading, setIsLoading }) {
                 type="button"
                 onClick={async () => {
                   await deleteBooking(pin); // Ensure this is awaited if it's async
-                  setIsLoading(2);
+                  setContinueToggle(5);
                 }}
                 className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
               >
@@ -72,7 +76,7 @@ export default function UpdateCard({ bookingInfo, isLoading, setIsLoading }) {
 
       <Transition
         as="div"
-        show={isLoading == 2}
+        show={continueToggle == 5}
         enter="transition-opacity delay-500 duration-600 ease-out"
         enterFrom="opacity-0"
         enterTo="opacity-100"

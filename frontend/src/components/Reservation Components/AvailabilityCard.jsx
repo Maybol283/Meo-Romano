@@ -1,5 +1,3 @@
-import { Transition } from "@headlessui/react";
-
 const AvailabilityCard = ({
   Availability,
   handleBookingInfoChange,
@@ -7,16 +5,7 @@ const AvailabilityCard = ({
   setContinueToggle,
 }) => {
   return (
-    <Transition
-      as="div"
-      show={continueToggle == 2}
-      enter="transition-opacity delay-500 duration-300 ease-out"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="transition-opacity duration-300 ease-in"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
+    <div>
       {Availability && Availability.length > 0 ? (
         <ul role="list" className="divide-y divide-gray-500">
           {Availability.map((slot, index) => (
@@ -42,18 +31,7 @@ const AvailabilityCard = ({
           different date.
         </p>
       )}
-
-      <button
-        onClick={() => {
-          setContinueToggle(0);
-          handleBookingInfoChange("timeSlot", []);
-        }}
-        type="button"
-        className="my-2 cursor-default rounded-lg bg-white py-2 pl-3 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-      >
-        Back
-      </button>
-    </Transition>
+    </div>
   );
 };
 
