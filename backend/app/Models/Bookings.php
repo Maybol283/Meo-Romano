@@ -48,4 +48,22 @@ class Bookings extends Model
    
     }
 
+    public static function updateBooking($changedInfo, $pin){
+        $booking = self::where('pin', $pin)->first();
+    
+        // If a booking is found, update it with new information
+        if ($booking) {
+            $booking->update([
+                'tables_needed' => $changedInfo['tables_needed'],
+                'time_slot' => $changedInfo['time_slot'],
+                'date' => $changedInfo['date'],
+                'party_size' => $changedInfo['party_size'],
+            ]);
+            return true; // Return true to indicate success
+        }
+    
+        // Return false if no booking was found with the given pin
+        return false;
+    }
+
 }

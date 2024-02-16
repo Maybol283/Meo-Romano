@@ -1,9 +1,14 @@
-import { deleteBooking } from "../../tools/queryDatabase";
 import { Transition } from "@headlessui/react";
+import getTimeSlot, {
+  updateBooking,
+  deleteBooking,
+} from "../../tools/queryDatabase";
+
 export default function UpdateCard({
   bookingInfo,
   continueToggle,
   setContinueToggle,
+  pin,
 }) {
   return (
     <div className="flex flex-col pt-10 gap-2">
@@ -36,14 +41,22 @@ export default function UpdateCard({
                   <li className="px-6 py-10 grid grid-cols-3 items-center">
                     <span className="font-black">Number of Guests:</span>
                     <span>{bookingInfo.partySize}</span>
-                    <button onClick={() => handleEdit("partySize")}>
-                      Edit
-                    </button>
+                    <button onClick={() => setContinueToggle(1)}>Edit</button>
                   </li>
                   <li className="px-6 py-10 grid grid-cols-3 items-center">
                     <span className="font-black">Time Slot:</span>
                     <span>{bookingInfo.timeSlot}</span>
-                    <button onClick={() => handleEdit("timeSlot")}>Edit</button>
+                    <button
+                      onClick={async () => {
+                        await getTimeSlot(
+                          bookingInfo.partySize,
+                          bookingInfo.date
+                        );
+                        setContinueToggle(2);
+                      }}
+                    >
+                      Edit
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -62,9 +75,9 @@ export default function UpdateCard({
                 Delete
               </button>
               <button
-                onClick={() => {
-                  setContinueToggle(5);
-                  postReservation(bookingInfo);
+                onClick={async () => {
+                  await updateBooking(bookingInfo, pin);
+                  setContinueToggle(6);
                 }}
               >
                 Submit
@@ -86,6 +99,20 @@ export default function UpdateCard({
       >
         <div className="rounded-md bg-white shadow p-4">
           <h1>Your booking has been cancelled</h1>
+        </div>
+      </Transition>
+      <Transition
+        as="div"
+        show={continueToggle == 6}
+        enter="transition-opacity delay-500 duration-600 ease-out"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-600 ease-in"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <div className="rounded-md bg-white shadow p-4">
+          <h1>Your booking has been successfully updated!</h1>
         </div>
       </Transition>
     </div>

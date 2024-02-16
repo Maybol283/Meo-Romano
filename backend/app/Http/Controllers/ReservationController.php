@@ -23,7 +23,7 @@ class ReservationController
     
     public function getTimeSlot(Request $request)
     {   
-        Bookings::truncate();
+        
         Log::info('Received PIN: ' . $request);
         // Access the data sent from the front-end
         $validated = $request->validate([
@@ -100,7 +100,7 @@ class ReservationController
         return response()->json(['message' => 'An error occurred'], 500);
     }
 
-    public function updateInfo(Request $request){
+    public function getUpdateInfo(Request $request){
 
         $pin = $request->input('pin');
        
@@ -123,5 +123,36 @@ class ReservationController
             return response()->json(['message' => 'Booking not found.'], 404);
         }
     }
+
+        public function updateBooking (Request $request){
+        
+            \Log::info('Received update booking data:', $request->all());
+
+            $validatedData = $request->validate([
+                'tables_needed' => 'required|integer',
+                'time_slot' => 'required|string|max:255',
+                'date' => 'required|date',
+                'party_size' => 'required|integer',
+                'pin' => 'required|string|max:255'
+            ]);
+
+            $changedInfo = [
+                'tables_needed' => $validatedData['tables_needed'],
+                'time_slot' => $validatedData['time_slot'],
+                'date' => $validatedData['date'],
+                'party_size' => $validatedData['party_size'],
+            ];
+            
+            $updatingInfo = Bookings::updateBooking($changedInfo, $validatedData['pin']);
+
+        if($updatingInfo){
+            return response()->json(['message' => 'Booking updated successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Booking not found'], 404);
+        }
+
+            
+        
+        }
 
 }

@@ -52,7 +52,7 @@ export async function postReservation (bookingInfo){
 export async function getBookingInfo(pin){
     try {
         // Append the pin as a query parameter in the URL
-        const url = `http://127.0.0.1:8000/api/booking-manager/update?pin=${pin}`;
+        const url = `http://127.0.0.1:8000/api/booking-manager/get?pin=${pin}`;
         const response = await axios.get(url);
         return response.data;
     } catch (error) {
@@ -66,6 +66,24 @@ export async function deleteBooking(pin){
         const url = `http://127.0.0.1:8000/api/booking-manager/delete?pin=${pin}`;
         const response = await axios.delete(url);
        return response.data
+    } catch (error) {
+        console.error('Error:', error.response ? error.response.data : error.message);
+    }
+}
+
+export async function updateBooking(bookingInfo, pin){
+    try {
+
+        const updateInfo = {
+            pin: pin,
+            date: bookingInfo.date, // Changed from new_date
+            party_size: bookingInfo.partySize, // Changed from new_party_size
+            time_slot: bookingInfo.timeSlot, // Changed from new_time_slot
+            tables_needed: checkPartySize(bookingInfo.partySize) // Changed from new_tables_needed
+        }
+
+        const response = await axios.patch(`http://127.0.0.1:8000/api/booking-manager/update`, updateInfo);
+        return response.data;
     } catch (error) {
         console.error('Error:', error.response ? error.response.data : error.message);
     }

@@ -7,6 +7,7 @@ import { Transition } from "@headlessui/react";
 import dateFormatter from "../tools/dateFormatter.js";
 import AvailabilityCard from "../components/Reservation Components/AvailabilityCard.jsx";
 import getTimeSlot from "../tools/queryDatabase";
+
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export default function BookingManager() {
@@ -104,6 +105,7 @@ export default function BookingManager() {
           bookingInfo={bookingInfo}
           continueToggle={continueToggle}
           setContinueToggle={setContinueToggle}
+          pin={pin}
         />
         <Transition
           as="div"
