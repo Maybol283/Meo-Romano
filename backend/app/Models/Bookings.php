@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Log;
 
 
 class Bookings extends Model
@@ -21,6 +21,7 @@ class Bookings extends Model
         $totalBookedTables = self::where('date', $date)
                                 ->where('time_slot', $timeSlot)
                                 ->sum('tables_needed');
+                               
 
         $totalTables = 10;
         return ($totalBookedTables + $tablesNeeded) <= $totalTables;

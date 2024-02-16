@@ -9,6 +9,8 @@ export default function UpdateCard({
   continueToggle,
   setContinueToggle,
   pin,
+  availableTimes,
+  setAvailableTimes,
 }) {
   return (
     <div className="flex flex-col pt-10 gap-2">
@@ -51,7 +53,18 @@ export default function UpdateCard({
                         await getTimeSlot(
                           bookingInfo.partySize,
                           bookingInfo.date
-                        );
+                        )
+                          .then((AvailabilitySlots) => {
+                            setAvailableTimes(AvailabilitySlots);
+                          })
+                          .catch((error) => {
+                            console.error(
+                              "Error:",
+                              error.response
+                                ? error.response.data
+                                : error.message
+                            );
+                          });
                         setContinueToggle(2);
                       }}
                     >
@@ -86,35 +99,6 @@ export default function UpdateCard({
           </div>
         </Transition>
       </div>
-
-      <Transition
-        as="div"
-        show={continueToggle == 5}
-        enter="transition-opacity delay-500 duration-600 ease-out"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-600 ease-in"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <div className="rounded-md bg-white shadow p-4">
-          <h1>Your booking has been cancelled</h1>
-        </div>
-      </Transition>
-      <Transition
-        as="div"
-        show={continueToggle == 6}
-        enter="transition-opacity delay-500 duration-600 ease-out"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-600 ease-in"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <div className="rounded-md bg-white shadow p-4">
-          <h1>Your booking has been successfully updated!</h1>
-        </div>
-      </Transition>
     </div>
   );
 }

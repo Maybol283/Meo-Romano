@@ -106,6 +106,8 @@ export default function BookingManager() {
           continueToggle={continueToggle}
           setContinueToggle={setContinueToggle}
           pin={pin}
+          availableTimes={availableTimes}
+          setAvailableTimes={setAvailableTimes}
         />
         <Transition
           as="div"
@@ -127,12 +129,9 @@ export default function BookingManager() {
           />
           <div className="pt-5">
             <button
-              onClick={() => {
+              onClick={async () => {
                 setContinueToggle(0);
-                setTimeout(() => {
-                  setContinueToggle(2);
-                }, 1000);
-                getTimeSlot(selectedPartySize, date)
+                await getTimeSlot(selectedPartySize, date)
                   .then((AvailabilitySlots) => {
                     setAvailableTimes(AvailabilitySlots);
                   })
@@ -178,6 +177,34 @@ export default function BookingManager() {
           </div>
         </Transition>
       </div>
+      <Transition
+        as="div"
+        show={continueToggle == 5}
+        enter="transition-opacity delay-500 duration-600 ease-out"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-600 ease-in"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <div className="rounded-md bg-white shadow p-4">
+          <h1>Your booking has been cancelled</h1>
+        </div>
+      </Transition>
+      <Transition
+        as="div"
+        show={continueToggle == 6}
+        enter="transition-opacity delay-500 duration-600 ease-out"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-600 ease-in"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <div className="rounded-md bg-white shadow p-4">
+          <h1>Your booking has been successfully updated!</h1>
+        </div>
+      </Transition>
     </div>
   );
 }

@@ -126,7 +126,7 @@ class ReservationController
 
         public function updateBooking (Request $request){
         
-            \Log::info('Received update booking data:', $request->all());
+            
 
             $validatedData = $request->validate([
                 'tables_needed' => 'required|integer',
