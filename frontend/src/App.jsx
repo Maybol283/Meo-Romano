@@ -12,6 +12,7 @@ import About from "./pages/About";
 import Reservations from "./pages/Reservations";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import UpdateManager from "./pages/UpdateManager.jsx";
 import BookingManager from "./pages/BookingManager.jsx";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/reservations" element={<Reservations />} />
+        <Route path="/update-manager" element={<UpdateManager />} />
         <Route path="/booking-manager" element={<BookingManager />} />
       </Routes>
       <Footer />

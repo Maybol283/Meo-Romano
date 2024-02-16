@@ -24,8 +24,10 @@ Route::get('/reservations/query', [ReservationController::class, 'getTimeSlot'])
 
 Route::post('reservations/store', [ReservationController::class, 'storeBooking'])->name('reservations.store');
 
-Route::get('/booking-manager/get', [ReservationController::class, 'getUpdateInfo'])->name('booking.getInfo');
+Route::get('/update-manager/get', [ReservationController::class, 'getUpdateInfo'])->name('booking.getUpdateInfo');
 
-Route::delete('/booking-manager/delete', [ReservationController::class, 'deleteBooking'])->name('booking.delete');
+Route::get('/booking-manager/get', [ReservationController::class, 'getUpdateInfo'])->name('booking.getAllInfo');
 
-Route::patch('/booking-manager/update', [ReservationController::class, 'updateBooking'])->name('booking.update');
+Route::delete('/update-manager/delete', [ReservationController::class, 'deleteBooking'])->name('booking.delete');
+
+Route::patch('/update-manager/update', [ReservationController::class, 'updateBooking'])->name('booking.update');

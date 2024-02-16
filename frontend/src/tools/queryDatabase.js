@@ -50,20 +50,32 @@ export async function postReservation (bookingInfo){
 
 //retrieve columns: date, time, first_name and number_of_guests
 export async function getBookingInfo(pin){
-    try {
-        // Append the pin as a query parameter in the URL
-        const url = `http://127.0.0.1:8000/api/booking-manager/get?pin=${pin}`;
-        const response = await axios.get(url);
-        return response.data;
-    } catch (error) {
-        console.error('Error:', error.response ? error.response.data : error.message);
+    if(pin != "000000"){
+        try {
+            // Append the pin as a query parameter in the URL
+            const url = `http://127.0.0.1:8000/api/update-manager/get?pin=${pin}`;
+            const response = await axios.get(url);
+            return response.data;
+        } catch (error) {
+            console.error('Error:', error.response ? error.response.data : error.message);
+        }
+    } else{
+        try {
+            // Append the pin as a query parameter in the URL
+            const url = `http://127.0.0.1:8000/api/booking-manager/get?pin=000000`;
+            const response = await axios.get(url);
+            return response.data;
+        } catch (error) {
+            console.error('Error:', error.response ? error.response.data : error.message);
+        }
     }
+    
 }
 
 export async function deleteBooking(pin){
     try {
         // Append the pin as a query parameter in the URL
-        const url = `http://127.0.0.1:8000/api/booking-manager/delete?pin=${pin}`;
+        const url = `http://127.0.0.1:8000/api/update-manager/delete?pin=${pin}`;
         const response = await axios.delete(url);
        return response.data
     } catch (error) {
@@ -82,7 +94,7 @@ export async function updateBooking(bookingInfo, pin){
             tables_needed: checkPartySize(bookingInfo.partySize) // Changed from new_tables_needed
         }
 
-        const response = await axios.patch(`http://127.0.0.1:8000/api/booking-manager/update`, updateInfo);
+        const response = await axios.patch(`http://127.0.0.1:8000/api/update-manager/update`, updateInfo);
         return response.data;
     } catch (error) {
         console.error('Error:', error.response ? error.response.data : error.message);

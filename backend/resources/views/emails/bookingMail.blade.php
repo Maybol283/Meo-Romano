@@ -19,7 +19,7 @@
             </ul>
             <p class="py-5">to edit your booking click the link below</p>
             <p class="text-3xl text-center py-5">{{ $data['pin'] }}</p>
-            <button class="place-self-center"><a href="http://localhost:5173/booking-manager?pin={{ $data['pin'] }}" class="place-self-center">Here</a> </button>
+            <button class="place-self-center"><a href="http://localhost:5173/update-manager?pin={{ $data['pin'] }}" class="place-self-center">Here</a> </button>
             <p class="py-10">We look forward to seeing you!</p>
         </div>
         <div class="px-6 py-4 bg-gray-200 text-sm text-gray-600">
