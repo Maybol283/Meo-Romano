@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Bookings;
 use App\Mail\BookingMail;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use App\Services\PinGenerator; // Correct namespace
 use Illuminate\Support\Facades\Log;
 
@@ -20,21 +19,21 @@ class ReservationController
     }
 
 
-    
+
     public function getTimeSlot(Request $request)
-    {   
-        
+    {
+
         Log::info('Received PIN: ' . $request);
         // Access the data sent from the front-end
         $validated = $request->validate([
             'date' => 'required|date',
             'tablesNeeded' => 'required|integer',
         ]);
-    
+
         $date = $validated['date'];
         $tablesNeeded = $validated['tablesNeeded'];
         $availableSlots = [];
-        
+
         //Predefined timeslots
         $timeSlots = ['16:00-18:00', '18:00-20:00', '20:00-22:00'];
 
@@ -100,10 +99,11 @@ class ReservationController
         return response()->json(['message' => 'An error occurred'], 500);
     }
 
-    public function getUpdateInfo(Request $request){
+    public function getUpdateInfo(Request $request)
+    {
 
         $pin = $request->input('pin');
-       
+
         $updateInfo = Bookings::fetchUpdateInfo($pin);
         if ($updateInfo) {
             // If you need to manipulate or return the data, do it here
@@ -113,10 +113,11 @@ class ReservationController
         }
     }
 
-    public function deleteBooking(Request $request){
+    public function deleteBooking(Request $request)
+    {
 
         $pin = $request->input('pin');
-        
+
         if (Bookings::deleteBooking($pin)) {
             return response()->json(['message' => 'Booking deleted successfully.']);
         } else {
@@ -124,35 +125,39 @@ class ReservationController
         }
     }
 
-        public function updateBooking (Request $request){
-        
-            
+    public function updateBooking(Request $request)
+    {
 
-            $validatedData = $request->validate([
-                'tables_needed' => 'required|integer',
-                'time_slot' => 'required|string|max:255',
-                'date' => 'required|date',
-                'party_size' => 'required|integer',
-                'pin' => 'required|string|max:255'
-            ]);
 
-            $changedInfo = [
-                'tables_needed' => $validatedData['tables_needed'],
-                'time_slot' => $validatedData['time_slot'],
-                'date' => $validatedData['date'],
-                'party_size' => $validatedData['party_size'],
-            ];
-            
-            $updatingInfo = Bookings::updateBooking($changedInfo, $validatedData['pin']);
 
-        if($updatingInfo){
+        $validatedData = $request->validate([
+            'tables_needed' => 'required|integer',
+            'time_slot' => 'required|string|max:255',
+            'date' => 'required|date',
+            'party_size' => 'required|integer',
+            'pin' => 'required|string|max:255'
+        ]);
+
+        $changedInfo = [
+            'tables_needed' => $validatedData['tables_needed'],
+            'time_slot' => $validatedData['time_slot'],
+            'date' => $validatedData['date'],
+            'party_size' => $validatedData['party_size'],
+        ];
+
+        $updatingInfo = Bookings::updateBooking($changedInfo, $validatedData['pin']);
+
+        if ($updatingInfo) {
             return response()->json(['message' => 'Booking updated successfully'], 200);
         } else {
             return response()->json(['message' => 'Booking not found'], 404);
         }
+    }
 
-            
-        
-        }
+    public function getAllBookingInfo()
+    {
+        $bookings = Bookings::paginate(10);
 
+        return response()->json($bookings);
+    }
 }

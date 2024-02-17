@@ -1,11 +1,28 @@
 import { Link } from "react-router-dom";
 import { useState, Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Dialog, Transition, Popover, Disclosure } from "@headlessui/react";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Reservations", href: "/Reservations" },
+  {
+    name: "Reservations",
+    href: "/Reservations",
+    children: [
+      {
+        name: "Make Reservation",
+        href: "/Reservations",
+      },
+      {
+        name: "Manage Booking",
+        href: "/sign-in",
+      },
+    ],
+  },
   { name: "Gallery", href: "/Gallery" },
   { name: "About Us", href: "/About" },
   { name: "Menu", href: "/Menu" },
@@ -35,15 +52,51 @@ export default function header() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href} // Change href to the corresponding route path
-              className="text-xl font-semibold leading-6 text-gray-900"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigation.map((item) =>
+            item.children ? (
+              <Popover key={item.name} className="relative">
+                <Popover.Button className="text-xl font-semibold leading-6 text-gray-900 flex items-center">
+                  {item.name}
+                  <ChevronDownIcon className="ml-2 h-5 w-5" />
+                </Popover.Button>
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-200"
+                  enterFrom="opacity-0 translate-y-1"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition ease-in duration-150"
+                  leaveFrom="opacity-100 translate-y-0"
+                  leaveTo="opacity-0 translate-y-1"
+                >
+                  <Popover.Panel className="absolute z-10 mt-3 w-48 max-w-sm px-4 sm:px-0">
+                    <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                      <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                        {item.children.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            to={subItem.href}
+                            className="-m-3 p-3 block rounded-md hover:bg-gray-50"
+                          >
+                            <p className="text-base font-medium text-gray-900">
+                              {subItem.name}
+                            </p>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </Popover.Panel>
+                </Transition>
+              </Popover>
+            ) : (
+              <Link
+                key={item.name}
+                to={item.href}
+                className="text-xl font-semibold leading-6 text-gray-900 text-center"
+              >
+                {item.name}
+              </Link>
+            )
+          )}
         </div>
       </nav>
       {/*Mobile Menu start*/}
@@ -63,7 +116,7 @@ export default function header() {
           leaveFrom="opacity-100  translate-x-0"
           leaveTo="opacity-0 translate-x-2/3"
         >
-          <div className="fixed inset-0 z-10 ">
+          <div className="fixed inset-0 z-10 flex flex-col justify-around ">
             <Dialog.Panel className="overflow-y-hidden fixed inset-y-0 right-0 z-10 w-full bg-white px-6 py-6 lg:max-w-md sm:ring-1 sm:ring-gray-900/10">
               <div className="flex items-center justify-end pt-1">
                 <button
@@ -75,21 +128,46 @@ export default function header() {
                   <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
-              <div className="flow-root">
-                <div className="-my-6 divide-y divide-gray-500/10">
-                  <div className="pb-6 md:text-left h-svh flex flex-col justify-around overflow-hidden">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.href} // Change href to the corresponding route path
-                        className="block rounded-lg lg:text-left text-center text-3xl font-semibold leading-10 text-gray-900 hover:bg-gray-50"
-                        onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+              <div className="mt-6">
+                {navigation.map((item) =>
+                  item.children ? (
+                    <Disclosure as="div" key={item.name} className="py-2">
+                      {({ open }) => (
+                        <>
+                          <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-left text-5xl font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100">
+                            {item.name}
+                            <ChevronDownIcon
+                              className={`${
+                                open ? "transform rotate-180" : ""
+                              } w-5 h-5 text-gray-500`}
+                            />
+                          </Disclosure.Button>
+                          <Disclosure.Panel className="px-4 pt-4 pb-2 text-3xl text-gray-500">
+                            {item.children.map((subItem) => (
+                              <Link
+                                key={subItem.name}
+                                to={subItem.href}
+                                className="block py-2 pl-4 pr-3 text-3xl rounded-lg hover:bg-gray-50"
+                                onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
+                              >
+                                {subItem.name}
+                              </Link>
+                            ))}
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
+                  ) : (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="block px-4 py-2 mt-2 text-5xl font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100"
+                      onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
+                    >
+                      {item.name}
+                    </Link>
+                  )
+                )}
               </div>
             </Dialog.Panel>
           </div>
