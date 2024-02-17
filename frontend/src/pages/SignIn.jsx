@@ -1,4 +1,31 @@
-export default function SignIn({ handleChange, handleSignIn, pin }) {
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function SignIn() {
+  const [pin, setPin] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(pin);
+  }, [pin]);
+
+  const handleSignIn = async () => {
+    try {
+      if (pin !== "000000") {
+        navigate(`/update-manager?pin=${pin}`);
+      } else {
+        navigate("/booking-manager");
+      }
+    } catch (error) {
+      console.error(error);
+      // Implement error handling, e.g., showing an error message to the user
+    }
+  };
+
+  const handleChange = (e) => {
+    setPin(e.target.value); // Correctly updates the pin state with the new value
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -13,13 +40,16 @@ export default function SignIn({ handleChange, handleSignIn, pin }) {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form
+          className="space-y-6"
+          action="#"
+          method="POST"
+          onSubmit={handleSignIn}
+        >
           <div>
             <div className="flex items-center justify-between">
               <label
                 className="block text-sm font-medium leading-6 text-gray-900"
-                value={pin}
-                onChange={handleChange}
                 placeholder="Enter PIN"
               >
                 Enter your pin below
@@ -35,6 +65,8 @@ export default function SignIn({ handleChange, handleSignIn, pin }) {
             </div>
             <div className="mt-2">
               <input
+                value={pin}
+                onChange={handleChange}
                 id="pin"
                 name="pin"
                 type="text"
@@ -49,9 +81,6 @@ export default function SignIn({ handleChange, handleSignIn, pin }) {
             <button
               type="submit"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              onClick={async () => {
-                handleSignIn();
-              }}
             >
               <a href="/update">Sign in</a>
             </button>

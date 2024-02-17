@@ -26,8 +26,8 @@ Route::post('reservations/store', [ReservationController::class, 'storeBooking']
 
 Route::get('/update-manager/get', [ReservationController::class, 'getUpdateInfo'])->name('booking.getUpdateInfo');
 
-Route::get('/booking-manager/get', [ReservationController::class, 'getUpdateInfo'])->name('booking.getAllInfo');
-
 Route::delete('/update-manager/delete', [ReservationController::class, 'deleteBooking'])->name('booking.delete');
 
 Route::patch('/update-manager/update', [ReservationController::class, 'updateBooking'])->name('booking.update');
+
+Route::get('/booking-manager/getAll', [ReservationController::class, 'getAllBookingInfo'])->name('booking.getAllInfo');

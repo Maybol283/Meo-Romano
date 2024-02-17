@@ -1,4 +1,4 @@
-import { getBookingInfo } from "../tools/queryDatabase.js";
+import { getUpdateBookingInfo } from "../tools/queryDatabase.js";
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import UpdateCard from "../components/Reservation Components/updateCard.jsx";
@@ -10,7 +10,8 @@ import getTimeSlot from "../tools/queryDatabase.js";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
-export default function UpdateManager(pin, setPin) {
+export default function UpdateManager() {
+  const [pin, setPin] = useState("");
   const isInitialMount = useRef(true);
   const [continueToggle, setContinueToggle] = useState(0);
   const [selectedPartySize, setSelectedPartySize] = useState(partySize[0]);
@@ -45,7 +46,7 @@ export default function UpdateManager(pin, setPin) {
     async function fetchData() {
       try {
         if (pin) {
-          const data = await getBookingInfo(pin);
+          const data = await getUpdateBookingInfo(pin);
           console.log(data);
           setBookingInfo({
             date: data.date || "",
