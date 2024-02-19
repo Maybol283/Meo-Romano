@@ -15,20 +15,28 @@ import Footer from "./components/Footer.jsx";
 import UpdateManager from "./pages/UpdateManager.jsx";
 import BookingManager from "./pages/BookingManager.jsx";
 import SignIn from "./pages/SignIn.jsx";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/about" element={<About />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/reservations" element={<Reservations />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/update-manager" element={<UpdateManager />} />
-        <Route path="/booking-manager" element={<BookingManager />} />
+        <Route
+          path="/booking-manager"
+          element={
+            <ProtectedRoute>
+              <BookingManager />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </BrowserRouter>

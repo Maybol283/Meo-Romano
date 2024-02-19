@@ -119,3 +119,19 @@ export async function updateBooking(bookingInfo, pin) {
     );
   }
 }
+
+export async function tokenIssue(pin) {
+  try {
+    const url = "http://127.0.0.1:8000/api/sign-in";
+
+    const response = await axios.post(url, { pin: pin });
+
+    console.log(response.data.url);
+    return response.data.url;
+  } catch (error) {
+    console.error(
+      "Error:",
+      error.response ? error.response.data : error.message
+    );
+  }
+}

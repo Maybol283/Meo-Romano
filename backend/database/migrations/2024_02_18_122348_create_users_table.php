@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained()->onDelete('cascade');
-            $table->string('time_slot');
-            $table->integer('tables_needed');
-            $table->date('date');
+            $table->string('pin');
+            $table->boolean('is_admin')->default(false); // Additional column to identify admin users
+            $table->rememberToken();
             $table->timestamps();
+            $table->string('password', 255)->nullable();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('users');
     }
 };

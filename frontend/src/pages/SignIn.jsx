@@ -1,24 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AdminModal from "../components/AdminModal";
 
 export default function SignIn() {
   const [pin, setPin] = useState("");
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    console.log(pin);
-  }, [pin]);
-
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
+    e.preventDefault(); // Prevent the form from causing a page reload
     try {
-      if (pin !== "000000") {
+      if (pin != "000000") {
         navigate(`/update-manager?pin=${pin}`);
       } else {
-        navigate("/booking-manager");
+        setOpen(true);
       }
     } catch (error) {
       console.error(error);
-      // Implement error handling, e.g., showing an error message to the user
     }
   };
 
@@ -28,42 +26,27 @@ export default function SignIn() {
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
-          className="mx-auto h-10 w-auto"
+          className="mx-auto h-12 w-auto"
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
           alt="Your Company"
         />
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-6 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
           Find your booking
         </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form
-          className="space-y-6"
-          action="#"
-          method="POST"
-          onSubmit={handleSignIn}
-        >
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <form className="space-y-6" onSubmit={handleSignIn}>
           <div>
-            <div className="flex items-center justify-between">
-              <label
-                className="block text-sm font-medium leading-6 text-gray-900"
-                placeholder="Enter PIN"
-              >
-                Enter your pin below
-              </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot Pin?
-                </a>
-              </div>
-            </div>
-            <div className="mt-2">
+            <label
+              htmlFor="pin"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Enter your pin below
+            </label>
+            <div className="mt-1">
               <input
                 value={pin}
                 onChange={handleChange}
@@ -72,7 +55,7 @@ export default function SignIn() {
                 type="text"
                 autoComplete="off"
                 required
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="appearance-none block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             </div>
           </div>
@@ -80,13 +63,14 @@ export default function SignIn() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
-              <a href="/update">Sign in</a>
+              Sign in
             </button>
           </div>
         </form>
       </div>
+      <AdminModal open={open} setOpen={setOpen} />
     </div>
   );
 }

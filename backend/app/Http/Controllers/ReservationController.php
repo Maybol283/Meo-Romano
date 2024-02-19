@@ -160,4 +160,8 @@ class ReservationController
 
         return response()->json($bookings);
     }
+
+    public function issueToken(Request $request)
+    {
+    }
 }

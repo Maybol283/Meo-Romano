@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         // Drop the old bookings table if it exists
-        Schema::dropIfExists('bookings');
+
 
         // Create the new bookings table
         Schema::create('bookings', function (Blueprint $table) {

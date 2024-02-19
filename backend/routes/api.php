@@ -30,4 +30,8 @@ Route::delete('/update-manager/delete', [ReservationController::class, 'deleteBo
 
 Route::patch('/update-manager/update', [ReservationController::class, 'updateBooking'])->name('booking.update');
 
-Route::get('/booking-manager/getAll', [ReservationController::class, 'getAllBookingInfo'])->name('booking.getAllInfo');
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::get('/booking-manager/getAll', [ReservationController::class, 'getAllBookingInfo'])->name('booking.getAllInfo');
+});
+
+Route::post('/sign-in', [ReservationController::class, 'issueToken'])->name('booking.token');
