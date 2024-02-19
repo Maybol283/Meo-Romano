@@ -1,12 +1,28 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import { adminLogin } from "../tools/queryDatabase";
+import { useAuth } from "./Provider/AuthProvider";
 
 export default function AdminModal({ open, setOpen }) {
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const navigate = useNavigate();
+  const { toggleAuth } = useAuth();
 
-  const handleLogin = (password) => {
-    issueToken(password);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    // Assuming adminLogin is a function that returns a promise
+    const result = await adminLogin(username, password);
+    if (result.success) {
+      toggleAuth(true); // Set isAuthenticated to true
+      console.log(sessionStorage.getItem("isAdminAuthenticated"));
+      navigate("/booking-manager");
+      // Navigate or perform other actions as needed
+    } else {
+      alert(result.error || "Login failed");
+    }
   };
 
   return (
@@ -53,25 +69,39 @@ export default function AdminModal({ open, setOpen }) {
                     <div className="mt-2"></div>
                   </div>
                 </div>
+
                 <div>
                   <form onSubmit={handleLogin}>
-                    <input
-                      id="admin-login"
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Enter Admin Password"
-                    />
-                    <div>
-                      <button type="submit">Login</button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setOpen(false);
-                        }}
-                      >
-                        Cancel
-                      </button>
+                    <div className="grid gap-1 justify-center">
+                      <div>
+                        <input
+                          id="admin-username"
+                          type="text"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                          placeholder="Enter Username"
+                        />
+                      </div>
+                      <div>
+                        <input
+                          id="admin-password"
+                          type="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="Enter Password"
+                        />
+                      </div>
+                      <div className="grid-cols-2 justify-center">
+                        <button type="submit">Login</button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </div>
                   </form>
                 </div>

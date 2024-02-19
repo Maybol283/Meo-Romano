@@ -69,20 +69,6 @@ export async function getUpdateBookingInfo(pin) {
   }
 }
 
-export async function getAllBookingInfo() {
-  try {
-    // Append the pin as a query parameter in the URL
-    const url = `http://127.0.0.1:8000/api/booking-manager/getAll`;
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
-  }
-}
-
 export async function deleteBooking(pin) {
   try {
     // Append the pin as a query parameter in the URL
@@ -120,14 +106,43 @@ export async function updateBooking(bookingInfo, pin) {
   }
 }
 
-export async function tokenIssue(pin) {
+export async function adminLogin(username, password) {
   try {
-    const url = "http://127.0.0.1:8000/api/sign-in";
+    const response = await axios.post("http://127.0.0.1:8000/api/admin/login", {
+      username,
+      password,
+    });
+    if (response.status === 200) {
+      return { success: true, token: response.data.token };
+    } else {
+      return { success: false, error: "Login failed" };
+    }
+  } catch (error) {
+    console.error(
+      "Error:",
+      error.response ? error.response.data : error.message
+    );
+    return { success: false, error: error.message };
+  }
+}
 
-    const response = await axios.post(url, { pin: pin });
+export async function getAllBookingInfo() {
+  try {
+    const url = `http://127.0.0.1:8000/api/booking-manager/getAll`;
+    // Retrieve the token from storage
+    const token =
+      sessionStorage.getItem("token") || localStorage.getItem("token");
+    console.log(`Token: ${token}`);
 
-    console.log(response.data.url);
-    return response.data.url;
+    const response = await axios.get(url, {
+      headers: {
+        // Include the token in the Authorization header
+        // Ensure your backend is expecting a Bearer token
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
   } catch (error) {
     console.error(
       "Error:",

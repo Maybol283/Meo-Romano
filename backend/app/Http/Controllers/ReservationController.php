@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bookings;
+use App\Models\User;
 use App\Mail\BookingMail;
 use Illuminate\Support\Facades\Mail;
 use App\Services\PinGenerator; // Correct namespace
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 class ReservationController
 {
@@ -161,7 +163,16 @@ class ReservationController
         return response()->json($bookings);
     }
 
-    public function issueToken(Request $request)
+    public function adminLogin(Request $request)
     {
+        $user = User::where('username', $request->username)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $token = $user->createToken('admin-access')->plainTextToken;
+
+        return response()->json(['token' => $token]);
     }
 }

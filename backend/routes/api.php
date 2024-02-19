@@ -34,4 +34,4 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/booking-manager/getAll', [ReservationController::class, 'getAllBookingInfo'])->name('booking.getAllInfo');
 });
 
-Route::post('/sign-in', [ReservationController::class, 'issueToken'])->name('booking.token');
+Route::post('/admin/login', [ReservationController::class, 'adminLogin'])->name('admin.login');

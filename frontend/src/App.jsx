@@ -16,30 +16,35 @@ import UpdateManager from "./pages/UpdateManager.jsx";
 import BookingManager from "./pages/BookingManager.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./components/Provider/AuthProvider.jsx";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/gallery" element={<Gallery />} />
-        <Route path="/reservations" element={<Reservations />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/update-manager" element={<UpdateManager />} />
-        <Route
-          path="/booking-manager"
-          element={
-            <ProtectedRoute>
-              <BookingManager />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/reservations" element={<Reservations />} />
+          <Route path="/update-manager" element={<UpdateManager />} />
+
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route
+            path="/booking-manager"
+            element={
+              <ProtectedRoute>
+                <BookingManager />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+
+        <Footer />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
