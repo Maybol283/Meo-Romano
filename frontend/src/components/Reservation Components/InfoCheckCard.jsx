@@ -29,6 +29,7 @@ export default function InfoCardCheck({ bookingInfo, setContinueToggle }) {
                 <span className="grid justify-self-start">{value}</span>
                 <span>
                   <button
+                    className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                     value={fieldName}
                     onClick={() => {
                       console.log(fieldName);
@@ -57,6 +58,7 @@ export default function InfoCardCheck({ bookingInfo, setContinueToggle }) {
       </div>
       <div className="pt-5">
         <button
+          className="text-white bg-gray-800 border border-gray-600 focus:outline-none hover:bg-gray-700 focus:ring-4 focus:ring-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-white dark:text-gray-800 dark:border-gray-300 dark:hover:bg-gray-100 dark:hover:border-gray-300 dark:focus:ring-gray-300"
           onClick={() => {
             setContinueToggle(5);
             postReservation(bookingInfo);

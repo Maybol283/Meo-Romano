@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminModal from "../components/AdminModal";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export default function SignIn() {
   const [pin, setPin] = useState("");
@@ -27,11 +28,7 @@ export default function SignIn() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img
-          className="mx-auto h-12 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
-        />
+        <MagnifyingGlassIcon className="w-40 h-40 mx-auto" />
         <h2 className="mt-6 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
           Find your booking
         </h2>

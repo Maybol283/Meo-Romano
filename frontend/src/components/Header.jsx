@@ -37,10 +37,9 @@ export default function header() {
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <a href="#" className="-m-1.5 p-1.5">
-          <span className="sr-only">Your Company</span>
-          <h2 className="h-8 w-auto text-black text-3xl pl-2">Meo Romano</h2>
-        </a>
+        <span className="sr-only">Your Company</span>
+        <h2 className="h-8 w-auto text-black text-3xl pl-2">Meo Romano</h2>
+
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -51,12 +50,12 @@ export default function header() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex lg:gap-x-12 flex items-center">
           {navigation.map((item) =>
             item.children ? (
               <Popover key={item.name} className="relative">
                 <Popover.Button className="text-xl font-semibold leading-6 text-gray-900 flex items-center">
-                  {item.name}
+                  <span className="underline-animation">{item.name}</span>
                   <ChevronDownIcon className="ml-2 h-5 w-5" />
                 </Popover.Button>
                 <Transition
@@ -75,9 +74,9 @@ export default function header() {
                           <Link
                             key={subItem.name}
                             to={subItem.href}
-                            className="-m-3 p-3 block rounded-md hover:bg-gray-50"
+                            className="-m-3 p-3 block rounded-md hover:bg-gray-50 flex items-center"
                           >
-                            <p className="text-base font-medium text-gray-900">
+                            <p className="text-base font-medium text-gray-900 items-center">
                               {subItem.name}
                             </p>
                           </Link>
@@ -91,7 +90,7 @@ export default function header() {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-xl font-semibold leading-6 text-gray-900 text-center"
+                className="text-xl font-semibold leading-6 text-gray-900 items"
               >
                 {item.name}
               </Link>
