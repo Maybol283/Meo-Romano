@@ -108,10 +108,20 @@ export async function updateBooking(bookingInfo, pin) {
 
 export async function adminLogin(username, password) {
   try {
-    const response = await axios.post("http://127.0.0.1:8000/api/admin/login", {
-      username,
-      password,
+    await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie", {
+      withCredentials: true,
     });
+
+    const response = await axios.post(
+      "http://127.0.0.1:8000/api/admin/login",
+      {
+        username,
+        password,
+      },
+      {
+        withCredentials: true, // Include this line to ensure cookies are sent with the request
+      }
+    );
     if (response.status === 200) {
       return { success: true, token: response.data.token };
     } else {
@@ -129,17 +139,10 @@ export async function adminLogin(username, password) {
 export async function getAllBookingInfo() {
   try {
     const url = `http://127.0.0.1:8000/api/booking-manager/getAll`;
-    // Retrieve the token from storage
-    const token =
-      sessionStorage.getItem("token") || localStorage.getItem("token");
-    console.log(`Token: ${token}`);
 
+    // Make the request with credentials included
     const response = await axios.get(url, {
-      headers: {
-        // Include the token in the Authorization header
-        // Ensure your backend is expecting a Bearer token
-        Authorization: `Bearer ${token}`,
-      },
+      withCredentials: true,
     });
 
     return response.data;

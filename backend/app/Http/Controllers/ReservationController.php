@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Services\PinGenerator; // Correct namespace
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController
 {
@@ -165,14 +166,14 @@ class ReservationController
 
     public function adminLogin(Request $request)
     {
-        $user = User::where('username', $request->username)->first();
+        $credentials = $request->only('username', 'password');
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return response()->json(['message' => 'Login successful']);
         }
 
-        $token = $user->createToken('admin-access')->plainTextToken;
-
-        return response()->json(['token' => $token]);
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
 }
