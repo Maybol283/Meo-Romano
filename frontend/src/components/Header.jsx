@@ -10,7 +10,7 @@ import {
 const navigation = [
   { name: "Home", href: "/" },
   {
-    name: "Reservations",
+    name: "Reservation",
     href: "/Reservations",
     children: [
       {
@@ -116,7 +116,7 @@ export default function header() {
           leaveTo="opacity-0 translate-x-2/3"
         >
           <div className="fixed inset-0 z-10 flex flex-col justify-around ">
-            <Dialog.Panel className="overflow-y-hidden fixed inset-y-0 right-0 z-10 w-full bg-white px-6 py-6 lg:max-w-md sm:ring-1 sm:ring-gray-900/10">
+            <Dialog.Panel className="overflow-x-hidden fixed inset-y-0 right-0 z-10 w-full bg-white px-6 py-6 lg:max-w-md sm:ring-1 sm:ring-gray-900/10">
               <div className="flex items-center justify-end pt-1">
                 <button
                   type="button"
@@ -133,26 +133,36 @@ export default function header() {
                     <Disclosure as="div" key={item.name} className="py-2">
                       {({ open }) => (
                         <>
-                          <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-left text-5xl font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100">
+                          <Disclosure.Button className="flex justify-center items-center w-full px-4 py-2  text-4xl sm:text-7xl font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100">
                             {item.name}
                             <ChevronDownIcon
                               className={`${
                                 open ? "transform rotate-180" : ""
-                              } w-5 h-5 text-gray-500`}
+                              } w-5 h-5 text-gray-500 flex align-self-center justify-end`}
                             />
                           </Disclosure.Button>
-                          <Disclosure.Panel className="px-4 pt-4 pb-2 text-3xl text-gray-500">
-                            {item.children.map((subItem) => (
-                              <Link
-                                key={subItem.name}
-                                to={subItem.href}
-                                className="block py-2 pl-4 pr-3 text-3xl rounded-lg hover:bg-gray-50"
-                                onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
-                              >
-                                {subItem.name}
-                              </Link>
-                            ))}
-                          </Disclosure.Panel>
+                          <Transition
+                            as={Fragment}
+                            enter="duration-100 transition ease-in-out duration-300 transform"
+                            enterFrom="opacity-0 translate-y-2/3"
+                            enterTo="opacity-100 translate-y-0"
+                            leave="duration-200 transition ease-in-out duration-300 transform"
+                            leaveFrom="opacity-100  translate-y-0"
+                            leaveTo="opacity-0 translate-y-2/3"
+                          >
+                            <Disclosure.Panel className="px-4 pt-4 pb-2 text-3xl text-gray-500">
+                              {item.children.map((subItem) => (
+                                <Link
+                                  key={subItem.name}
+                                  to={subItem.href}
+                                  className="block py-2 pl-4 pr-3 text-3xl  text-center rounded-lg hover:bg-gray-50"
+                                  onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
+                                >
+                                  {subItem.name}
+                                </Link>
+                              ))}
+                            </Disclosure.Panel>
+                          </Transition>
                         </>
                       )}
                     </Disclosure>
@@ -160,7 +170,7 @@ export default function header() {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className="block px-4 py-2 mt-2 text-5xl font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100"
+                      className="block px-4 py-2 mt-2 text-4xl sm:text-7xl text-center font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100"
                       onClick={() => setMobileMenuOpen(false)} // Close the mobile menu on click
                     >
                       {item.name}
