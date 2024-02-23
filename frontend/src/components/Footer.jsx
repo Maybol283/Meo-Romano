@@ -10,7 +10,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="text-4xl flex lg:items-center self-center">
-        <a key="Reservation" href="">
+        <a key="Reservation" href="/Reservations">
           Reservation
         </a>
       </div>

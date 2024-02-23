@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <title>React App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ asset('dist/assets/index-31df25b7.css') }}">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap" as="style" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('dist/assets/index-d8a0e926.css') }}">
 </head>
 
 <body>
     <div id="root"></div>
-    <script type="module" src="{{ asset('dist/assets/index-e923b2f7.js') }}"></script>
+    <script type="module" defer src="{{ asset('dist/assets/index-fed9eda3.js') }}"></script>
 </body>
 
 </html>

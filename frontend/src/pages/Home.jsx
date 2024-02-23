@@ -35,12 +35,13 @@ export default function Home() {
       </div>
       <div className="h-2/6 md:h-3/6 lg:h-4/6 overflow-hidden">
         <div
-          className="w-[150%]"
+          className="w-[150%] h-[100%] sm:h-[150%]"
           style={{
             transform: `translateX(${transformValue}px)`,
           }}
         >
           <img
+            loading="lazy"
             className="background-img overflow-hidden"
             src={pictures.home[0].url}
             alt={pictures.home[0].alt} // Adjust width and objectFit here

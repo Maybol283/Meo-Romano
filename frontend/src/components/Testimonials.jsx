@@ -1,12 +1,12 @@
 export default function Testimonials() {
   return (
     <div className="bg-white pb-16 pt-24 sm:pb-24 sm:pt-36 xl:pb-32">
-      <div className="bg-gray-900 pb-20 sm:pb-24 xl:pb-0">
+      <div className="bg-black pb-20 sm:pb-24 xl:pb-0">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-8 gap-y-10 px-6 sm:gap-y-8 lg:px-8 xl:flex-row xl:items-stretch">
           <div className="-mt-8 w-full max-w-2xl xl:-mb-8 xl:w-96 xl:flex-none">
             <div className="relative aspect-[2/1] h-full md:-mx-8 xl:mx-0 xl:aspect-auto">
               <img
-                className="absolute inset-0 h-full w-full rounded-2xl bg-gray-800 object-cover shadow-2xl"
+                className="absolute inset-0 h-full w-full rounded-2xl bg-black object-cover shadow-2xl"
                 src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
                 alt=""
               />

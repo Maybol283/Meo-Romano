@@ -37,7 +37,6 @@ export default function header() {
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
       >
-        <span className="sr-only">Your Company</span>
         <h2 className="h-8 w-auto text-black text-3xl pl-2">Meo Romano</h2>
 
         <div className="flex lg:hidden">
