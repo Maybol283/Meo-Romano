@@ -1,10 +1,11 @@
 import axios from "axios";
 
-function checkPartySize(partySize) {
+export function checkPartySize(partySize) {
   return partySize % 2 === 0 ? partySize : partySize + 1;
 }
+
 // Adding success and error callback parameters
-export default async function getTimeSlot(partySize, date) {
+export async function getTimeSlot(partySize, date) {
   // Adjust party size
 
   const data = {
