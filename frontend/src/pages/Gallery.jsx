@@ -4,6 +4,7 @@ import pictures from "../pictures/Pictures_URLS";
 export default function Gallery() {
   return (
     <>
+      <span>The Gallery</span>
       <div className="flex flex-wrap place-content-center md:p-5 gap-2">
         {pictures.gallery.map((item, index) => {
           const props = useSpring({

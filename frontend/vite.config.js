@@ -8,6 +8,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      // Add an alias for '@' to point to the src directory
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
   test: {
     // 👋 add the line below to add jsdom to vite
     environment: "jsdom",

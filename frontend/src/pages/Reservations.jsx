@@ -3,7 +3,6 @@ import { Transition } from "@headlessui/react";
 import dateFormatter from "../tools/dateFormatter";
 import ReservationCalenderForm from "../components/Reservation Components/ReservationCalenderForm.jsx";
 import AvailabilityCard from "../components/Reservation Components/AvailabilityCard.jsx";
-import queryDatabase from "../tools/queryDatabase.js";
 import ContactInfo from "../components/Reservation Components/ContactInfo.jsx";
 import InfoCardCheck from "../components/Reservation Components/InfoCheckCard.jsx";
 import BookingConfirmation from "../components/Reservation Components/BookingConfirmation.jsx";
@@ -47,6 +46,7 @@ export default function Reservations() {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center overflow-hidden relative z-5">
+      <span>Reservation Page</span>
       <h1 className="relative z-9 sm:bottom-[43%] bottom-[40%]">
         Reservations
       </h1>

@@ -30,7 +30,6 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/reservations" element={<Reservations />} />
           <Route path="/update-manager" element={<UpdateManager />} />
-
           <Route path="/sign-in" element={<SignIn />} />
           <Route
             path="/booking-manager"

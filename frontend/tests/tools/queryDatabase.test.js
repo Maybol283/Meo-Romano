@@ -10,7 +10,7 @@ import {
   updateBooking,
   adminLogin,
   getAllBookingInfo,
-} from "../src/tools/queryDatabase.js";
+} from "@/tools/queryDatabase.js";
 import { vi } from "vitest";
 import axios from "axios";
 vi.mock("axios");

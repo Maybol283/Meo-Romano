@@ -101,6 +101,7 @@ export default function UpdateManager() {
   return (
     <div className="h-screen flex flex-col justify-center items-center overflow-hidden relative z-5">
       <div className="absolute inset-0 flex flex-col items-center">
+        <span>Update Manager</span>
         <UpdateCard
           bookingInfo={bookingInfo}
           continueToggle={continueToggle}
