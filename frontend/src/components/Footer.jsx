@@ -16,8 +16,7 @@ export default function Footer() {
       </div>
       <div className="text-black flex flex-col justify-evenly">
         <h2 className="text-2xl lg:text-4xl">Hours</h2>
-        <p>Mon - Thursday 5pm-11pm</p>
-        <p>Friday - Sunday 2pm-10pm</p>
+        <p>Everyday 6-10</p>
       </div>
     </div>
   );

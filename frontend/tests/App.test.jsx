@@ -2,20 +2,8 @@ import { render, screen } from "@testing-library/react";
 import App from "@/App"; // Adjust the import path as necessary
 import { MemoryRouter } from "react-router-dom";
 import { describe, it, expect, vi } from "vitest";
-
+import { mockSessionStorage } from "./__mocks__/__AuthMocks__";
 //mock the authentication from AuthProvider
-const mockSessionStorage = (authenticated) => {
-  const sessionStorageMock = {
-    getItem: vi.fn((key) => {
-      if (key === "isAdminAuthenticated" && authenticated) return "true";
-      return null;
-    }),
-    setItem: vi.fn(),
-    removeItem: vi.fn(),
-    clear: vi.fn(),
-  };
-  global.sessionStorage = sessionStorageMock;
-};
 
 // Assuming vi.mock is correctly set up as before
 vi.mock("react-router-dom", async (importOriginal) => {
@@ -28,8 +16,8 @@ vi.mock("react-router-dom", async (importOriginal) => {
 
 // An array of route tests
 const routes = [
-  { path: "/", uniqueText: "more than just a meal" }, // Home
-  { path: "/about", uniqueText: "Our Story" }, // About
+  { path: "/", uniqueText: "more than just a meal" },
+  { path: "/about", uniqueText: "Our Story" },
   { path: "/gallery", uniqueText: "The Gallery" },
   { path: "/reservations", uniqueText: "Reservation Page" },
   { path: "/sign-in", uniqueText: "Enter your pin below" },

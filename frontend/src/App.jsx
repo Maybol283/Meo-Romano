@@ -40,7 +40,6 @@ function App() {
             }
           />
         </Routes>
-
         <Footer />
       </BrowserRouter>
     </AuthProvider>

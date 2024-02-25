@@ -17,8 +17,8 @@ const images = {
     { url: `${basePath}/Food_9.jpg`, alt: "Anti-Pasti" },
     { url: `${basePath}/Drink_4.jpg`, alt: "Cocktail" },
     { url: `${basePath}/Food_7.jpg`, alt: "Making Spaghetti" },
-    { url: `${basePath}/Food_11.jpg`, alt: "Making Spaghetti" },
-    { url: `${basePath}/Drink_5.jpg`, alt: "Making Spaghetti" },
+    { url: `${basePath}/Food_11.jpg`, alt: "Pasta" },
+    { url: `${basePath}/Drink_5.jpg`, alt: "3 Cocktails" },
   ],
   about: [
     { url: `${basePath}/Chef_1.jpg`, alt: "Chef Cookings" },

@@ -17,7 +17,7 @@ export default function AdminModal({ open, setOpen }) {
     const result = await adminLogin(username, password);
     if (result.success) {
       toggleAuth(true); // Set isAuthenticated to true
-      console.log(sessionStorage.getItem("isAdminAuthenticated"));
+
       navigate("/booking-manager");
       // Navigate or perform other actions as needed
     } else {
@@ -76,6 +76,7 @@ export default function AdminModal({ open, setOpen }) {
                       <div>
                         <input
                           id="admin-username"
+                          label="username"
                           type="text"
                           value={username}
                           onChange={(e) => setUsername(e.target.value)}
@@ -85,6 +86,7 @@ export default function AdminModal({ open, setOpen }) {
                       <div>
                         <input
                           id="admin-password"
+                          label="password"
                           type="password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
