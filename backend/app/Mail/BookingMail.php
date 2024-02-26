@@ -39,13 +39,14 @@ class BookingMail extends Mailable
      */
     public function content(): Content
     {
-        
+
 
         return new Content(
             view: 'emails.bookingMail',
             with: [
-            'data' => $this->data],
-    );
+                'data' => $this->data
+            ],
+        );
     }
 
     /**
