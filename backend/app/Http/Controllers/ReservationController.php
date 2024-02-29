@@ -95,7 +95,7 @@ class ReservationController
             Mail::to($validatedData['email'])->send(new BookingMail($emailData));
 
             // Return a successful response
-            return response()->json(['message' => 'Booking successful, confirmation email sent.'], 201);
+            return response()->json(['message' => $pin, 'Booking successful, confirmation email sent.'], 201);
         }
 
         // Return an error response if the booking couldn't be created

@@ -15,6 +15,7 @@ export default function BookingConfirmation({ bookingInfo }) {
           {bookingInfo.email}
         </span>{" "}
       </p>
+      <p>to access your booking use this pin: {bookingInfo.pin}</p>
     </div>
   );
 }

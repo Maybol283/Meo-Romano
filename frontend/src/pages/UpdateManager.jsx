@@ -1,12 +1,12 @@
 import { getUpdateBookingInfo } from "../tools/queryDatabase.js";
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import UpdateCard from "../components/Reservation Components/updateCard.jsx";
+import UpdateCard from "../components/Reservation Components/UpdateCard.jsx";
 import ReservationCalenderForm from "../components/Reservation Components/ReservationCalenderForm.jsx";
 import { Transition } from "@headlessui/react";
 import dateFormatter from "../tools/dateFormatter.js";
 import AvailabilityCard from "../components/Reservation Components/AvailabilityCard.jsx";
-import getTimeSlot from "../tools/queryDatabase.js";
+import { getTimeSlot } from "../tools/queryDatabase.js";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 

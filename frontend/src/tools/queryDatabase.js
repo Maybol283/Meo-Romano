@@ -46,7 +46,7 @@ export async function postReservation(bookingInfo) {
       "http://127.0.0.1:8000/api/reservations/store",
       booking
     );
-    return true;
+    return response.data;
   } catch (error) {
     console.error(
       "Error:",

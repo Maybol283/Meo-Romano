@@ -1,5 +1,6 @@
 import { Transition } from "@headlessui/react";
-import getTimeSlot, {
+import {
+  getTimeSlot,
   updateBooking,
   deleteBooking,
 } from "../../tools/queryDatabase";

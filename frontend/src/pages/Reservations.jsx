@@ -6,7 +6,7 @@ import AvailabilityCard from "../components/Reservation Components/AvailabilityC
 import ContactInfo from "../components/Reservation Components/ContactInfo.jsx";
 import InfoCardCheck from "../components/Reservation Components/InfoCheckCard.jsx";
 import BookingConfirmation from "../components/Reservation Components/BookingConfirmation.jsx";
-import getTimeSlot from "../tools/queryDatabase";
+import { getTimeSlot } from "../tools/queryDatabase";
 
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -22,6 +22,7 @@ export default function Reservations() {
     email: "",
     date: dateFormatter(new Date()),
     timeSlot: [],
+    pin: "",
   });
 
   function handleBookingInfoChange(fieldName, value) {
@@ -175,6 +176,7 @@ export default function Reservations() {
           <InfoCardCheck
             bookingInfo={bookingInfo}
             setContinueToggle={setContinueToggle}
+            handleBookingInfoChange={handleBookingInfoChange}
           />
         </Transition>
         <Transition

@@ -1,6 +1,10 @@
 import { postReservation } from "../../tools/queryDatabase";
 
-export default function InfoCardCheck({ bookingInfo, setContinueToggle }) {
+export default function InfoCardCheck({
+  bookingInfo,
+  setContinueToggle,
+  handleBookingInfoChange,
+}) {
   const fieldNames = {
     Date: bookingInfo.date,
     Time: bookingInfo.timeSlot,
@@ -59,9 +63,11 @@ export default function InfoCardCheck({ bookingInfo, setContinueToggle }) {
       <div className="pt-5">
         <button
           className="text-white bg-gray-800 border border-gray-600 focus:outline-none hover:bg-gray-700 focus:ring-4 focus:ring-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-white dark:text-gray-800 dark:border-gray-300 dark:hover:bg-gray-100 dark:hover:border-gray-300 dark:focus:ring-gray-300"
-          onClick={() => {
+          onClick={async () => {
             setContinueToggle(5);
-            postReservation(bookingInfo);
+            const response = await postReservation(bookingInfo);
+            console.log(response.data);
+            handleBookingInfoChange("pin", response.data);
           }}
         >
           Submit
