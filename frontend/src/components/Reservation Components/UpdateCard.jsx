@@ -10,7 +10,6 @@ export default function UpdateCard({
   continueToggle,
   setContinueToggle,
   pin,
-  availableTimes,
   setAvailableTimes,
 }) {
   return (
@@ -81,8 +80,16 @@ export default function UpdateCard({
               <button
                 type="button"
                 onClick={async () => {
-                  await deleteBooking(pin); // Ensure this is awaited if it's async
-                  setContinueToggle(5);
+                  try {
+                    await deleteBooking(pin); // Ensure this is awaited if it's async
+                    setContinueToggle(7);
+                  } catch (error) {
+                    console.error(
+                      "Error:",
+                      error.response ? error.response.data : error.message
+                    );
+                    setContinueToggle(8);
+                  }
                 }}
                 className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
               >
@@ -90,8 +97,16 @@ export default function UpdateCard({
               </button>
               <button
                 onClick={async () => {
-                  await updateBooking(bookingInfo, pin);
-                  setContinueToggle(6);
+                  try {
+                    await updateBooking(bookingInfo, pin);
+                    setContinueToggle(6);
+                  } catch (error) {
+                    console.error(
+                      "Error:",
+                      error.response ? error.response.data : error.message
+                    );
+                    setContinueToggle(8);
+                  }
                 }}
               >
                 Submit

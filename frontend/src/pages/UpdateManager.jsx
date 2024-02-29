@@ -1,6 +1,6 @@
 import { getUpdateBookingInfo } from "../tools/queryDatabase.js";
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import UpdateCard from "../components/Reservation Components/UpdateCard.jsx";
 import ReservationCalenderForm from "../components/Reservation Components/ReservationCalenderForm.jsx";
 import { Transition } from "@headlessui/react";
@@ -11,6 +11,7 @@ import { getTimeSlot } from "../tools/queryDatabase.js";
 const partySize = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export default function UpdateManager() {
+  const navigate = useNavigate();
   const [pin, setPin] = useState("");
   const isInitialMount = useRef(true);
   const [continueToggle, setContinueToggle] = useState(0);
@@ -58,11 +59,10 @@ export default function UpdateManager() {
           setSelectedPartySize(data.party_size);
         } else {
           console.error("PIN not provided in URL");
-          setBookingInfo({});
         }
       } catch (error) {
         console.error("Failed to fetch booking info:", error);
-        setBookingInfo({});
+        navigate("/sign-in");
       } finally {
         setContinueToggle(3);
       }
@@ -101,7 +101,7 @@ export default function UpdateManager() {
   return (
     <div className="h-screen flex flex-col justify-center items-center overflow-hidden relative z-5">
       <div className="absolute inset-0 flex flex-col items-center">
-        <span>Update Manager</span>
+        <span className="opacity-0">Update Manager</span>
         <UpdateCard
           bookingInfo={bookingInfo}
           continueToggle={continueToggle}
@@ -202,8 +202,22 @@ export default function UpdateManager() {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="rounded-md bg-white shadow p-4">
+        <div className="rounded-md bg-white p-4">
           <h1>Your booking has been successfully updated!</h1>
+        </div>
+      </Transition>
+      <Transition
+        as="div"
+        show={continueToggle == 8}
+        enter="transition-opacity delay-500 duration-600 ease-out"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-600 ease-in"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <div className="rounded-md bg-white p-4">
+          <h1>There was an error in updating your booking, please try again</h1>
         </div>
       </Transition>
     </div>

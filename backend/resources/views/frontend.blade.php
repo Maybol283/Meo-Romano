@@ -13,7 +13,7 @@
 
 <body>
     <div id="root"></div>
-    <script type="module" defer src="{{ asset('dist/assets/index-fed9eda3.js') }}"></script>
+    <script type="module" defer src="{{ asset('dist/assets/index-d8b3857d.js') }}"></script>
 </body>
 
 </html>

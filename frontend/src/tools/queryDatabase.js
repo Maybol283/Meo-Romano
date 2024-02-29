@@ -44,9 +44,15 @@ export async function postReservation(bookingInfo) {
   try {
     const response = await axios.post(
       "http://127.0.0.1:8000/api/reservations/store",
-      booking
+      booking,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
     );
-    return response.data;
+    console.log(response);
+    return response.data.pin;
   } catch (error) {
     console.error(
       "Error:",

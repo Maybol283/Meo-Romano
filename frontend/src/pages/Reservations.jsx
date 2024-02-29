@@ -47,7 +47,7 @@ export default function Reservations() {
 
   return (
     <div className="h-screen flex flex-col justify-center items-center overflow-hidden relative z-5">
-      <span>Reservation Page</span>
+      <span className="opacity-0">Reservation Page</span>
       <h1 className="relative z-9 sm:bottom-[43%] bottom-[40%]">
         Reservations
       </h1>
@@ -71,12 +71,9 @@ export default function Reservations() {
           />
 
           <button
-            onClick={() => {
+            onClick={async () => {
               setContinueToggle(1);
-              setTimeout(() => {
-                setContinueToggle(2);
-              }, 1000);
-              getTimeSlot(bookingInfo.partySize, bookingInfo.date)
+              await getTimeSlot(bookingInfo.partySize, bookingInfo.date)
                 .then((AvailabilitySlots) => {
                   setAvailableTimes(AvailabilitySlots);
                 })
@@ -86,6 +83,7 @@ export default function Reservations() {
                     error.response ? error.response.data : error.message
                   );
                 });
+              setContinueToggle(2);
             }}
             type="button"
             className="mt-3 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
