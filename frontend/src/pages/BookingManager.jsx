@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { getAllBookingInfo } from "../tools/queryDatabase";
+import { useNavigate } from "react-router-dom";
 
 export default function BookingManager() {
   const [bookings, setBookings] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,14 +32,6 @@ export default function BookingManager() {
             A list of all bookings in your account including their name, date,
             email and party number.
           </p>
-        </div>
-        <div className="mt-4 flex justify-center">
-          <button
-            type="button"
-            className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Create Booking
-          </button>
         </div>
       </div>
       <div className="mt-8 flow-root">
@@ -94,12 +88,14 @@ export default function BookingManager() {
                       {booking.party_size}
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                      <a
-                        href={`http://localhost:5173/update-manager?pin=${booking.pin}`}
-                        className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                      <button
+                        onClick={() =>
+                          navigate(`/update-manager?pin=${booking.pin}`)
+                        }
+                        className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                       >
-                        Edit<span className="sr-only">, {booking.name}</span>
-                      </a>
+                        Edit<span className="sr-only">,{booking.name}</span>
+                      </button>
                     </td>
                   </tr>
                 ))}

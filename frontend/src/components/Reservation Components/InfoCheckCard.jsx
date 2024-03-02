@@ -11,7 +11,7 @@ export default function InfoCardCheck({
     "First name": bookingInfo.firstName,
     "Last name": bookingInfo.lastName,
     "Phone number": bookingInfo.phoneNumber,
-    "E-mail": bookingInfo.email,
+    Email: bookingInfo.email,
     "Number of Guests": bookingInfo.partySize,
   };
 
@@ -21,6 +21,7 @@ export default function InfoCardCheck({
         <ul
           role="list"
           className="max-h-[300px] overflow-y-auto divide-y divide-gray-200"
+          aria-label="Reservation Information"
         >
           {Object.entries(fieldNames).map(([fieldName, value], index) => (
             <li key={fieldName + index} className="px-6 py-10 grid">
@@ -41,7 +42,7 @@ export default function InfoCardCheck({
                         case "First name":
                         case "Last name":
                         case "Phone number":
-                        case "E-mail":
+                        case "Email":
                           setContinueToggle(3);
                           break;
                         case "Time":
@@ -66,7 +67,8 @@ export default function InfoCardCheck({
           onClick={async () => {
             const response = await postReservation(bookingInfo);
             console.log(response);
-            handleBookingInfoChange("pin", response).then(setContinueToggle(5));
+            await handleBookingInfoChange("pin", response);
+            setContinueToggle(5);
           }}
         >
           Submit

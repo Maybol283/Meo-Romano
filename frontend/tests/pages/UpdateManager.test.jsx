@@ -7,9 +7,10 @@ vi.mock("react-router-dom", () => ({
   useLocation: () => ({
     search: "?pin=123456", // Example query string
   }),
+  useNavigate: () => vi.fn(),
 }));
 
-vi.mock("../tools/queryDatabase.js", () => ({
+vi.mock("@/tools/queryDatabase.js", () => ({
   getUpdateBookingInfo: vi.fn(() =>
     Promise.resolve({
       date: "2023-01-01",
@@ -35,8 +36,12 @@ describe("UpdateManager Component", () => {
     render(<UpdateManager />);
     await waitFor(() => expect(screen.queryByText("Loading...")).toBeNull());
     expect(screen.getByText("Update Manager")).toBeInTheDocument();
-    // More detailed assertions about the displayed booking information can go here
-  });
 
-  // Add more tests to cover user interactions and other component states
+    await waitFor(() =>
+      expect(screen.getByText("Hello George")).toBeInTheDocument()
+    );
+    expect(screen.getByText("2023-01-01")).toBeInTheDocument();
+    expect(screen.getByText("18:00")).toBeInTheDocument();
+    expect(screen.getByText("4")).toBeInTheDocument();
+  });
 });

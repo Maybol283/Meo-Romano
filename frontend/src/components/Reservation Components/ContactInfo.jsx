@@ -29,7 +29,11 @@ export default function ContactInfo({
   };
 
   return (
-    <form className="absolute z-11" onSubmit={handleSubmit}>
+    <form
+      className="absolute z-11"
+      onSubmit={handleSubmit}
+      aria-label="Contact Information Form"
+    >
       <div className="space-y-12">
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -44,6 +48,7 @@ export default function ContactInfo({
               <label
                 htmlFor="first-name"
                 className="block text-sm font-medium leading-6 text-gray-900"
+                for="first-name"
               >
                 First name
               </label>
@@ -65,6 +70,7 @@ export default function ContactInfo({
               <label
                 htmlFor="last-name"
                 className="block text-sm font-medium leading-6 text-gray-900"
+                for="last-name"
               >
                 Last name
               </label>
@@ -86,8 +92,9 @@ export default function ContactInfo({
               <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
+                for="email"
               >
-                Email address
+                Email
               </label>
               <div className="mt-2">
                 <input
@@ -107,6 +114,7 @@ export default function ContactInfo({
               <label
                 htmlFor="phone-number"
                 className="block text-sm font-medium leading-6 text-gray-900"
+                form="phone-number"
               >
                 Phone Number
               </label>

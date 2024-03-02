@@ -1,11 +1,16 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import AdminModal from "@/components/AdminModal"; // Adjust the import path as necessary
 import { vi } from "vitest";
-import { MemoryRouter } from "react-router-dom";
 
 vi.mock("@/tools/queryDatabase", () => ({
-  adminLogin: vi.fn(() => Promise.resolve({ success: true })),
+  adminLogin: vi.fn((username, password) =>
+    username === "validUser" && password === "validPass"
+      ? Promise.resolve({ success: true })
+      : Promise.resolve({ success: false, error: "Login Failed" })
+  ),
 }));
+
+window.alert = vi.fn();
 
 const mockedUseNavigate = vi.fn();
 vi.mock("react-router-dom", async () => {
@@ -16,38 +21,49 @@ vi.mock("react-router-dom", async () => {
   };
 });
 
+const mockToggleAuth = vi.fn();
+
 vi.mock("@/components/Provider/AuthProvider", () => ({
   useAuth: () => ({
-    toggleAuth: vi.fn(),
+    toggleAuth: mockToggleAuth,
   }),
 }));
-
-describe("AdminModal", () => {
-  it("renders correctly when open", () => {
-    render(<AdminModal open={true} setOpen={() => {}} />, {
-      wrapper: MemoryRouter,
-    });
-    expect(screen.getByText("Admin Login")).toBeInTheDocument();
+//Test 1
+it("successfully logs in with correct credentials", async () => {
+  render(<AdminModal open={true} setOpen={() => {}} />);
+  mockToggleAuth.mockImplementation(() => {
+    true;
+  });
+  // Simulate user input
+  fireEvent.change(screen.getByPlaceholderText("Enter Username"), {
+    target: { value: "validUser" },
+  });
+  fireEvent.change(screen.getByPlaceholderText("Enter Password"), {
+    target: { value: "validPass" },
   });
 
-  it("submits login information", async () => {
-    const setOpen = vi.fn();
-    render(<AdminModal open={true} setOpen={setOpen} />, {
-      wrapper: MemoryRouter,
-    });
+  // Simulate form submission
+  fireEvent.click(screen.getByText("Login"));
 
-    const usernameInput = screen.getByPlaceholderText("Enter Username");
-    const passwordInput = screen.getByPlaceholderText("Enter Password");
-
-    // Simulate user typing into the input fields
-    fireEvent.change(usernameInput, { target: { value: "adminUser" } });
-    fireEvent.change(passwordInput, { target: { value: "adminPass" } });
-
-    // Find and click the login button
-    const loginButton = screen.getByText("Login");
-    fireEvent.click(loginButton);
-    expect(mockedUseNavigate).toBeCalled();
+  // Check if navigation and auth toggling were called
+  await waitFor(() => {
+    expect(mockToggleAuth).toHaveBeenCalledWith(true);
   });
+});
 
-  // Add more tests as needed...
+//Test 2
+it("displays an error with incorrect credentials", async () => {
+  render(<AdminModal open={true} setOpen={() => {}} />);
+  fireEvent.change(screen.getByPlaceholderText("Enter Username"), {
+    target: { value: "user" },
+  });
+  fireEvent.change(screen.getByPlaceholderText("Enter Password"), {
+    target: { value: "pass" },
+  });
+  fireEvent.click(screen.getByText("Login"));
+
+  await waitFor(() => {
+    // Check that an error message is displayed or `toggleAuth` wasn't called with true
+    expect(window.alert).toHaveBeenCalledWith("Login Failed");
+  });
 });

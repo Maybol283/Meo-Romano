@@ -208,7 +208,7 @@ export default function UpdateManager() {
       </Transition>
       <Transition
         as="div"
-        show={continueToggle == 8}
+        show={continueToggle == 7}
         enter="transition-opacity delay-500 duration-600 ease-out"
         enterFrom="opacity-0"
         enterTo="opacity-100"

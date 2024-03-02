@@ -5,7 +5,7 @@
     <title>Booking Confirmation</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('dist/assets/index-7efcd521.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/assets/index-122ea778.css') }}" rel="stylesheet">
 </head>
 
 <body class="flex place-content-center">

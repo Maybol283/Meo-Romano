@@ -68,15 +68,18 @@ describe("postReservation", () => {
     date: "2023-01-01",
   };
 
-  it("successfully posts reservation data", async () => {
+  it("successfully posts reservation data and returns a 6 character pin", async () => {
     // Mock the axios.post response
-    axios.post.mockResolvedValue({ status: 200 });
+    axios.post.mockResolvedValue({
+      status: 200,
+      data: { pin: "ABC123" }, // Example pin, can be any 6 characters
+    });
 
     // Call the function with the mock booking info
     const result = await postReservation(mockBookingInfo);
 
     // Check that the function returns true
-    expect(result).toBe(true);
+    expect(result).toMatch(/^[A-Za-z0-9]{6}$/);
 
     // Verify axios.post was called with the correct URL and booking data
     expect(axios.post).toHaveBeenCalledWith(

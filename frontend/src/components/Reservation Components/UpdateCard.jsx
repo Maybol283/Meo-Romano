@@ -82,13 +82,13 @@ export default function UpdateCard({
                 onClick={async () => {
                   try {
                     await deleteBooking(pin); // Ensure this is awaited if it's async
-                    setContinueToggle(7);
+                    setContinueToggle(5);
                   } catch (error) {
                     console.error(
                       "Error:",
                       error.response ? error.response.data : error.message
                     );
-                    setContinueToggle(8);
+                    setContinueToggle(7);
                   }
                 }}
                 className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
@@ -105,7 +105,7 @@ export default function UpdateCard({
                       "Error:",
                       error.response ? error.response.data : error.message
                     );
-                    setContinueToggle(8);
+                    setContinueToggle(7);
                   }
                 }}
               >

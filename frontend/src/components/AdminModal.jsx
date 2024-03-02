@@ -17,7 +17,6 @@ export default function AdminModal({ open, setOpen }) {
     const result = await adminLogin(username, password);
     if (result.success) {
       toggleAuth(true); // Set isAuthenticated to true
-
       navigate("/booking-manager");
       // Navigate or perform other actions as needed
     } else {
