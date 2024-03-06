@@ -37,9 +37,7 @@ describe("UpdateManager Component", () => {
     await waitFor(() => expect(screen.queryByText("Loading...")).toBeNull());
     expect(screen.getByText("Update Manager")).toBeInTheDocument();
 
-    await waitFor(() =>
-      expect(screen.getByText("Hello George")).toBeInTheDocument()
-    );
+    expect(screen.getByText("Hello George")).toBeInTheDocument();
     expect(screen.getByText("2023-01-01")).toBeInTheDocument();
     expect(screen.getByText("18:00")).toBeInTheDocument();
     expect(screen.getByText("4")).toBeInTheDocument();

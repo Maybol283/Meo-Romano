@@ -152,6 +152,6 @@ it("allows the user to confirm their reservation details", async () => {
   await waitFor(() => {
     expect(
       screen.getByText("your booking was successful!")
-    ).toBeInTheDocument(); // Adjust text based on your actual content
+    ).toBeInTheDocument();
   });
 });
