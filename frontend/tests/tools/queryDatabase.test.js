@@ -97,7 +97,7 @@ describe("postReservation", () => {
     );
   });
 
-  // You can add more tests here to cover failure cases or different scenarios
+  // You can add more tests here to cover failure cases or different scenario
 });
 
 describe("getUpdateBookingInfo", () => {

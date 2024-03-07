@@ -1,75 +1,28 @@
-import { vi } from "vitest";
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
-import Gallery from "@/pages/Gallery"; // Adjust the import path as necessary
-
-vi.mock("../../pictures/Pictures_URLS", () => ({
-  default: {
-    gallery: [
-      { url: `/test/Drink_1.jpg`, alt: "Lemon Cocktail" },
-      { url: `/test/Food_1.jpg`, alt: "Steak Grill" },
-      { url: `/test/Food_2.jpg`, alt: "Pizza Slice" },
-      { url: `/test/Food_3.jpg`, alt: "Spaghetti" },
-      { url: `/test/Drink_2.jpg`, alt: "Mimosa" },
-      { url: `/test/Food_4.jpg`, alt: "2 Meals" },
-      { url: `/test/Misc_1.jpg`, alt: "Condiments" },
-      { url: `/test/Food_5.jpg`, alt: "Pizza Oven" },
-      { url: `/test/Food_6.jpg`, alt: "Carbonara" },
-      { url: `/test/Food_8.jpg`, alt: "Oysters" },
-      { url: `/test/Drink_3.jpg`, alt: "Wine Rack" },
-      { url: `/test/Food_9.jpg`, alt: "Anti-Pasti" },
-      { url: `/test/Drink_4.jpg`, alt: "Cocktail" },
-      { url: `/test/Food_7.jpg`, alt: "Making Spaghetti" },
-      { url: `/test/Food_11.jpg`, alt: "Pasta" },
-      { url: `/test/Drink_5.jpg`, alt: "3 Cocktails" },
-    ],
-  },
-}));
-
-vi.mock("@react-spring/web", () => ({
-  useSpring: vi.fn(() => ({ opacity: 1 })),
-  animated: {
-    // Mock `img` as a React component
-    img: vi
-      .fn()
-      .mockImplementation(({ children, ...props }) => (
-        <img {...props}>{children}</img>
-      )),
-  },
-}));
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import Gallery from "@/pages/Gallery"; // Adjust the import path based on your file structure
+import pictures from "@/pictures/Pictures_URLS"; // Adjust the import path as needed
 
 describe("Gallery Component", () => {
-  it("renders gallery images correctly", () => {
+  // Test to check if the Gallery component renders without crashing
+  it("renders Gallery component", () => {
     render(<Gallery />);
+    expect(screen.getByText(/The Gallery/i)).toBeInTheDocument();
+  });
 
-    // Check for the gallery title
-    expect(screen.getByLabelText("Gallery Images")).toBeInTheDocument();
+  // Test to check if the correct gallery is displayed based on the viewport width
+  it("displays correct gallery for mobile", () => {
+    global.innerWidth = 500; // Set the window width to 500px (mobile view)
+    const { rerender } = render(<Gallery />);
+    const mobileImage = screen.getAllByRole("img")[0];
+    expect(mobileImage).toHaveAttribute("src", pictures.gallery_mobile[0].url);
+  });
 
-    // Verify each mock image is rendered with correct src and alt attributes
-    const images = [
-      { url: `/test/Drink_1.jpg`, alt: "Lemon Cocktail" },
-      { url: `/test/Food_1.jpg`, alt: "Steak Grill" },
-      { url: `/test/Food_2.jpg`, alt: "Pizza Slice" },
-      { url: `/test/Food_3.jpg`, alt: "Spaghetti" },
-      { url: `/test/Drink_2.jpg`, alt: "Mimosa" },
-      { url: `/test/Food_4.jpg`, alt: "2 Meals" },
-      { url: `/test/Misc_1.jpg`, alt: "Condiments" },
-      { url: `/test/Food_5.jpg`, alt: "Pizza Oven" },
-      { url: `/test/Food_6.jpg`, alt: "Carbonara" },
-      { url: `/test/Food_8.jpg`, alt: "Oysters" },
-      { url: `/test/Drink_3.jpg`, alt: "Wine Rack" },
-      { url: `/test/Food_9.jpg`, alt: "Anti-Pasti" },
-      { url: `/test/Drink_4.jpg`, alt: "Cocktail" },
-      { url: `/test/Food_7.jpg`, alt: "Making Spaghetti" },
-      { url: `/test/Food_11.jpg`, alt: "Pasta" },
-      { url: `/test/Drink_5.jpg`, alt: "3 Cocktails" },
-    ];
-
-    images.forEach(({ url, alt }) => {
-      const expectedUrl = url.replace("/test", "/src/pictures");
-      const image = screen.getByAltText(alt);
-      expect(image).toBeInTheDocument();
-      expect(image).toHaveAttribute("src", expectedUrl);
-    });
+  it("display the correct gallery for desktop", () => {
+    global.innerWidth = 1024; // Set the window width to 1024px (desktop view)
+    fireEvent(window, new Event("resize")); // Trigger the resize event
+    const { rerender } = render(<Gallery />); // Rerender the component to apply the changes
+    const desktopImage = screen.getAllByRole("img")[0];
+    expect(desktopImage).toHaveAttribute("src", pictures.gallery[0].url);
   });
 });

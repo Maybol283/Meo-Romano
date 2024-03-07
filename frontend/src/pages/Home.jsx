@@ -30,7 +30,12 @@ export default function Home() {
   return (
     <>
       <div className="background-white h-screen pb-20 gap-y-5 flex flex-col justify-center items-center">
-        <h2 className="text-5xl sm:text-7xl md:text-9xl">Meo Romano</h2>
+        <h2
+          className="text-5xl sm:text-7xl md:text-9xl"
+          aria-label="Restauraunt Title"
+        >
+          Meo Romano
+        </h2>
         <p className="text-xl">more than just a meal</p>
       </div>
       <div className="h-2/6 md:h-3/6 lg:h-4/6 overflow-hidden">

@@ -52,7 +52,7 @@ it("transitions to ContactInfo upon selecting a time slot", async () => {
   await waitFor(() => {
     const selectButtons = screen.getAllByText("Select");
     expect(selectButtons.length).toBeGreaterThan(0);
-    fireEvent.click(selectButtons[0]); // Click the first "Select" button
+    fireEvent.click(selectButtons[0]); // Click the first "Select" butto
   });
 
   // Now wait for the ContactInfo component to appear

@@ -38,7 +38,6 @@ export default function header() {
         aria-label="Global"
       >
         <h2 className="h-8 w-auto text-black text-3xl pl-2">Meo Romano</h2>
-
         <div className="flex lg:hidden">
           <button
             type="button"

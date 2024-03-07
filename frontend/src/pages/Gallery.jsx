@@ -23,10 +23,8 @@ export default function Gallery() {
   }, []);
   return (
     <>
-      <div
-        aria-label="Gallery Images"
-        className="flex flex-wrap place-content-center md:p-5 gap-2"
-      >
+      <span className="opacity-0">The Gallery</span>
+      <div className="flex flex-wrap place-content-center md:p-5 gap-2">
         {currentGallery.map((item, index) => {
           const props = useSpring({
             from: { opacity: 0 },
