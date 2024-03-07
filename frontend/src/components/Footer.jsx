@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="h-dvh flex flex-col lg:flex-row justify-around lg:h-4/6">
+    <div className="h-[600px] sm:h-100 flex flex-col lg:flex-row justify-around lg:h-4/6">
       <div className="text-black flex flex-col justify-around">
         <h2 className="text-2xl lg:text-4xl">Contact</h2>
         <p className="text-xl">Contact@MeoRomano.co.uk</p>

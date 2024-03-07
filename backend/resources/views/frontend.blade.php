@@ -8,12 +8,12 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap" as="style" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('dist/assets/index-122ea778.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/assets/index-9bcaea5f.css') }}">
 </head>
 
 <body>
     <div id="root"></div>
-    <script type="module" defer src="{{ asset('dist/assets/index-99d93079.js') }}"></script>
+    <script type="module" defer src="{{ asset('dist/assets/index-1b85324d.js') }}"></script>
 </body>
 
 </html>

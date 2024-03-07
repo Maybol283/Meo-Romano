@@ -43,7 +43,7 @@ describe("Gallery Component", () => {
     render(<Gallery />);
 
     // Check for the gallery title
-    expect(screen.getByText("The Gallery")).toBeInTheDocument();
+    expect(screen.getByLabelText("Gallery Images")).toBeInTheDocument();
 
     // Verify each mock image is rendered with correct src and alt attributes
     const images = [

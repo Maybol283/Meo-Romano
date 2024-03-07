@@ -13,8 +13,7 @@ class BookingMailTest extends TestCase
     {
         Mail::fake();
 
-        // Assuming you have a route that triggers the sending of the BookingMail
-        // For the purpose of this example, let's assume the route is `/make-booking`
+
         $bookingData = [
             'first_name' => 'John',
             'last_name' => 'Doe',
