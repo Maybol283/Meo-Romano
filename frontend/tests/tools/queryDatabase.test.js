@@ -1,6 +1,5 @@
 import "@testing-library/jest-dom/vitest";
 import { describe, it, expect } from "vitest";
-import axios from "axios";
 import {
   checkPartySize,
   getTimeSlot,
@@ -13,6 +12,7 @@ import {
 } from "@/tools/queryDatabase.js";
 import { vi } from "vitest";
 import axios from "axios";
+
 vi.mock("axios");
 
 describe("checkPartySize", () => {
@@ -52,8 +52,23 @@ describe("getTimeSlot", () => {
       { params: { tablesNeeded: partySize, date: date } } // Assuming checkPartySize(partySize) === partySize for simplicity
     );
   });
+  it("handles errors if the API call fails", async () => {
+    // Mock a network or server error
+    const errorMessage = "Network error";
+    axios.get.mockRejectedValue(new Error(errorMessage));
 
-  // You can add more tests here to cover failure cases or different scenarios
+    // Mock console.error to verify it gets called
+    console.error = vi.fn();
+
+    // Attempt to fetch time slot info which should trigger an error
+    await getTimeSlot();
+
+    // Assert that console.error was called with the expected message
+    expect(console.error).toHaveBeenCalledWith("Error:", errorMessage);
+
+    // Cleanup mock
+    console.error.mockRestore();
+  });
 });
 
 describe("postReservation", () => {
@@ -97,7 +112,31 @@ describe("postReservation", () => {
     );
   });
 
-  // You can add more tests here to cover failure cases or different scenario
+  it("handles errors if the API call fails", async () => {
+    // Mock a network or server error
+    const errorMessage = "Network error";
+    axios.post.mockRejectedValue(new Error(errorMessage));
+
+    // Mock console.error to verify it gets called
+    console.error = vi.fn();
+
+    try {
+      // Attempt to make a reservation which should fail
+      await postReservation(mockBookingInfo);
+      // Fail the test if no error is thrown
+      expect(true).toBe(false);
+    } catch (error) {
+      // Assert that an error was thrown
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toBe(errorMessage);
+    }
+
+    // Assert that console.error was called with the expected message
+    expect(console.error).toHaveBeenCalledWith("Error:", errorMessage);
+
+    // Cleanup mock
+    console.error.mockRestore();
+  });
 });
 
 describe("getUpdateBookingInfo", () => {
@@ -130,7 +169,23 @@ describe("getUpdateBookingInfo", () => {
     );
   });
 
-  // Here you can add more tests to cover different scenarios, such as handling API call failures
+  it("handles errors if the API call fails", async () => {
+    // Mock a network or server error
+    const errorMessage = "Network error";
+    axios.get.mockRejectedValue(new Error(errorMessage));
+
+    // Mock console.error to verify it gets called
+    console.error = vi.fn();
+
+    // Attempt to fetch time slot info which should trigger an error
+    await getUpdateBookingInfo();
+
+    // Assert that console.error was called with the expected message
+    expect(console.error).toHaveBeenCalledWith("Error:", errorMessage);
+
+    // Cleanup mock
+    console.error.mockRestore();
+  });
 });
 
 describe("deleteBooking", () => {

@@ -53,6 +53,7 @@ export async function postReservation(bookingInfo) {
       "Error:",
       error.response ? error.response.data : error.message
     );
+    throw error;
   }
 }
 
