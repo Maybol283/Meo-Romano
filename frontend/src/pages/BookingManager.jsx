@@ -3,13 +3,21 @@ import { getAllBookingInfo } from "../tools/queryDatabase";
 import { useNavigate } from "react-router-dom";
 
 export default function BookingManager() {
+  const [currentPage, setCurrentPage] = useState(1);
   const [bookings, setBookings] = useState([]);
   const navigate = useNavigate();
 
+  const handleNext = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevious = () => {
+    setCurrentPage((prevPage) => (prevPage > 1 ? prevPage - 1 : prevPage));
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllBookingInfo(); // Make sure this function is async
+        const response = await getAllBookingInfo(currentPage); // Make sure this function is async
         console.log(response.data);
         setBookings(response.data); // Assuming the data is directly accessible like this; adjust as needed based on the actual structure
       } catch (error) {
@@ -19,7 +27,7 @@ export default function BookingManager() {
     };
 
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   return (
     <div className="py-10 px-6 sm:px-6 lg:px-8">
@@ -101,6 +109,10 @@ export default function BookingManager() {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className="flex pr-10 align-center justify-center gap-20">
+            <button onClick={handlePrevious}>Previous</button>
+            <button onClick={handleNext}>Next</button>
           </div>
         </div>
       </div>

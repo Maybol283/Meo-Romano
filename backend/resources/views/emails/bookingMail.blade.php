@@ -5,7 +5,7 @@
     <title>Booking Confirmation</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('dist/assets/index-122ea778.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/assets/index-86354ae1.css') }}" rel="stylesheet">
 </head>
 
 <body class="flex place-content-center">
@@ -21,7 +21,7 @@
                 </ul>
                 <p class="py-5">to edit your booking click the link below</p>
                 <p class="text-3xl text-center py-5">{{ $data['pin'] }}</p>
-                <button class="place-self-center"><a href="http://localhost:5173/update-manager?pin={{ $data['pin'] }}" class="place-self-center">Here</a> </button>
+                <button class="place-self-center"><a href="http://127.0.0.1:8000/update-manager?pin={{ $data['pin'] }}" class="place-self-center">Here</a> </button>
                 <p class="py-10">We look forward to seeing you!</p>
             </div>
             <div class="px-6 py-4 bg-gray-200 text-sm text-gray-600">

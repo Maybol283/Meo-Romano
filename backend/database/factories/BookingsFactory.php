@@ -25,7 +25,7 @@ class BookingsFactory extends Factory
     public function definition()
     {
         return [
-            'date' => $this->faker->date(),
+            'date' => $this->faker->dateTimeBetween('now', '+1 week')->format('Y-m-d'),
             'time_slot' => $this->faker->randomElement(['16:00-18:00', '18:00-20:00', '20:00-22:00']),
             'tables_needed' => $this->faker->numberBetween(1, 3),
             'pin' => $this->faker->numerify('######'),

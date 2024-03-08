@@ -160,9 +160,11 @@ class ReservationController
         }
     }
 
-    public function getAllBookingInfo()
+    public function getAllBookingInfo(Request $request)
     {
-        $bookings = Bookings::paginate(10);
+        $bookings = Bookings::orderBy('date', 'asc')
+            ->orderBy('time_slot', 'asc')
+            ->paginate(10, ['*'], 'page', $request->query('page', 1));
 
         return response()->json($bookings);
     }

@@ -139,9 +139,9 @@ export async function adminLogin(username, password) {
   }
 }
 
-export async function getAllBookingInfo() {
+export async function getAllBookingInfo(page = 1) {
   try {
-    const url = `http://127.0.0.1:8000/api/booking-manager/getAll`;
+    const url = `http://127.0.0.1:8000/api/booking-manager/getAll?page=${page}`;
 
     // Make the request with credentials included
     const response = await axios.get(url, {

@@ -142,6 +142,7 @@ export default function UpdateManager() {
                       error.response ? error.response.data : error.message
                     );
                   });
+                setContinueToggle(2);
               }}
             >
               Submit
