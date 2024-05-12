@@ -32,10 +32,6 @@ export default function Reservations() {
     }));
   }
 
-  useEffect(() => {
-    console.log(bookingInfo);
-  }, [bookingInfo]);
-
   function dateSelect(dateValue) {
     const formattedDate = dateFormatter(dateValue); //format the data into YYYY-MM-DD  before state update
     handleBookingInfoChange("date", formattedDate);

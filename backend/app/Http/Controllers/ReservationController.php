@@ -91,8 +91,22 @@ class ReservationController
                 'pin' => $pin
             ];
 
-            // Send the booking confirmation email
-            Mail::to($validatedData['email'])->send(new BookingMail($emailData));
+            // Log the email address
+            Log::info('Sending booking confirmation email to:', ['email' => $validatedData['email']]);
+
+            try {
+                // Send the booking confirmation email
+                Mail::to($validatedData['email'])->send(new BookingMail($emailData));
+
+                // Log the successful email sending
+                Log::info('Booking confirmation email sent successfully to:', ['email' => $validatedData['email']]);
+            } catch (\Exception $e) {
+                // Log the error if email sending fails
+                Log::error('Failed to send booking confirmation email to:', [
+                    'email' => $validatedData['email'],
+                    'error' => $e->getMessage()
+                ]);
+            }
 
             // Return a successful response
             return response()->json([

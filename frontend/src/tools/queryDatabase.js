@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export function checkPartySize(partySize) {
   return partySize % 2 === 0 ? partySize : partySize + 1;
 }
@@ -15,16 +17,13 @@ export async function getTimeSlot(partySize, date) {
 
   try {
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/reservations/query",
-      { params: data }
+      `${API_BASE_URL}api/reservations/query?tablesNeeded=${data.tablesNeeded}&date=${data.date}`
     );
     const availableSlots = response.data.availableSlots;
+
     return availableSlots;
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
+    throw error;
   }
 }
 
@@ -43,16 +42,12 @@ export async function postReservation(bookingInfo) {
 
   try {
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/reservations/store",
+      `${API_BASE_URL}api/reservations/store`,
       booking
     );
     console.log(response);
     return response.data.pin;
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
     throw error;
   }
 }
@@ -61,28 +56,22 @@ export async function postReservation(bookingInfo) {
 export async function getUpdateBookingInfo(pin) {
   try {
     // Append the pin as a query parameter in the URL
-    const url = `http://127.0.0.1:8000/api/update-manager/get?pin=${pin}`;
+    const url = `${API_BASE_URL}api/update-manager/get?pin=${pin}`;
     const response = await axios.get(url);
     return response.data;
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
+    throw error;
   }
 }
 
 export async function deleteBooking(pin) {
   try {
     // Append the pin as a query parameter in the URL
-    const url = `http://127.0.0.1:8000/api/update-manager/delete?pin=${pin}`;
+    const url = `${API_BASE_URL}api/update-manager/delete?pin=${pin}`;
     const response = await axios.delete(url);
     return response.data;
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
+    throw error;
   }
 }
 
@@ -97,26 +86,23 @@ export async function updateBooking(bookingInfo, pin) {
     };
 
     const response = await axios.patch(
-      `http://127.0.0.1:8000/api/update-manager/update`,
+      `${API_BASE_URL}api/update-manager/update`,
       updateInfo
     );
     return response.data;
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
+    throw error;
   }
 }
 
 export async function adminLogin(username, password) {
   try {
-    await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie", {
+    await axios.get(`${API_BASE_URL}sanctum/csrf-cookie`, {
       withCredentials: true,
     });
 
     const response = await axios.post(
-      "http://127.0.0.1:8000/api/admin/login",
+      `${API_BASE_URL}api/admin/login`,
       {
         username,
         password,
@@ -131,17 +117,13 @@ export async function adminLogin(username, password) {
       return { success: false, error: "Login failed" };
     }
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
-    return { success: false, error: error.message };
+    throw error;
   }
 }
 
 export async function getAllBookingInfo(page = 1) {
   try {
-    const url = `http://127.0.0.1:8000/api/booking-manager/getAll?page=${page}`;
+    const url = `${API_BASE_URL}api/booking-manager/getAll?page=${page}`;
 
     // Make the request with credentials included
     const response = await axios.get(url, {
@@ -150,9 +132,6 @@ export async function getAllBookingInfo(page = 1) {
 
     return response.data;
   } catch (error) {
-    console.error(
-      "Error:",
-      error.response ? error.response.data : error.message
-    );
+    throw error;
   }
 }
