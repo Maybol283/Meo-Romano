@@ -8,7 +8,7 @@ Meo Romano is a digital gateway to an authentic Italian dining experience. This 
 - Secure Mailer Service: A built-in mailing system delivers immediate booking confirmations and unique access PINs directly to users' inboxes.
 
 ## 💻 Technical Stack
-While I couldn't access the live site, based on the sophisticated features, this project likely utilizes a modern, robust web development stack to deliver its functionality:
+This project  utilizes a modern, robust web development stack to deliver its functionality:
 
 - Frontend: Built with React.js ⚛️ for a highly interactive and responsive user experience.
 - Backend: Powered by Laravel 🐘, providing a secure and scalable API for managing bookings, user data, and the admin panel.
